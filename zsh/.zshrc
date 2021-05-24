@@ -143,7 +143,7 @@ alias l="ls"      l.='ls -d .*'   la='ls -a'   ll='ls -lbt created'
 
 alias vi='nvim'
 alias vim='nvim'
-alias cat='bat'
+#alias cat='bat'
 alias btop='bashtop'
 
 # Remove git from a project
