@@ -28,5 +28,8 @@ Plug 'junegunn/fzf.vim'
 " Better Syntax Support
 Plug 'sheerun/vim-polyglot'
 
+" vimcdoc
+Plug 'yianwillis/vimcdoc'
+
 " Initialize plugin system
 call plug#end() 

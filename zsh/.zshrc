@@ -34,10 +34,12 @@ alias zz='z -i'      # 使用交互式选择模式
 alias zf='z -I'      # 使用 fzf 对多个结果进行选择
 alias zb='z -b'      # 快速回到父目录
 alias zzz='z ~'
+alias cdb='cd -'
 alias ..='cd ..'
 alias ...='cd ../../../'
 alias ....='cd ../../../../'
 
+# p10kupdate
 alias p10kupdate='git -C ${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/themes/powerlevel10k pull'
 
 # ls
@@ -50,13 +52,15 @@ alias l="ls"      l.='ls -d .*'   la='ls -a'   ll='ls -lbt created'
 alias cp='cp -iv'
 alias mv='mv -iv'
 alias ln='ln -iv'
-alias mkdir='mkdir -v'
+alias mkdir='mkdir -v -p'
 
+# Convenience
 alias vi='nvim'
 alias vim='nvim'
-#alias cat='bat'
+alias fd="fd --hidden --exclude '.git'"
 alias btop='bashtop'
 alias hrg='history | rg'
+alias glow='glow -p'
 
 # Remove git from a project
 alias ungit="find . -name '.git' -exec rm -rf {} \;"
@@ -67,7 +71,21 @@ alias ta='tmux attach -t'                         # tmux attach
 alias tl='tmux ls'                                # list
 alias tk='tmux kill-session -s'                   # kill session name
 
+
 # Zinit
+autoload -Uz _zinit
+(( ${+_comps} )) && _comps[zinit]=_zinit
+
+# Load a few important annexes, without Turbo
+# (this is currently required for annexes)
+zinit light-mode for \
+    zdharma-continuum/zinit-annex-rust \
+    zdharma-continuum/zinit-annex-readurl \
+    zdharma-continuum/zinit-annex-patch-dl \
+    zdharma-continuum/zinit-annex-bin-gem-node
+
+### End of Zinit's installer chunk
+
 autoload -Uz compinit promptinit
 compinit
 promptinit
@@ -98,20 +116,22 @@ zstyle ':fzf-tab:*' fzf-command ftb-tmux-popup
 # 快速目录跳转
 zinit ice lucid wait='1'
 zinit light skywind3000/z.lua
+zinit light zdharma-continuum/history-search-multi-word
 
-#高亮
-#zinit ice lucid wait='0' atinit='zpcompinit'
-#zinit light zdharma/fast-syntax-highlighting
-#
-##自动建议
-#zinit ice lucid wait="0" atload='_zsh_autosuggest_start'
-#zinit light zsh-users/zsh-autosuggestions
-
+#高亮 自动建议
 zinit wait lucid for \
  atinit"ZINIT[COMPINIT_OPTS]=-C; zpcompinit; zpcdreplay" \
-    zdharma/fast-syntax-highlighting \
+    zdharma-continuum/fast-syntax-highlighting \
  atload"!_zsh_autosuggest_start" \
     zsh-users/zsh-autosuggestions \
+ atload"!export HISTORY_SUBSTRING_SEARCH_HIGHLIGHT_FOUND='bg=yellow,fg=white,bold'" \
+    zsh-users/zsh-history-substring-search \
+ pick"zsh-interactive-cd.plugin.zsh" \
+    changyuheng/zsh-interactive-cd \
+ pick"fz.plugin.zsh" \
+    changyuheng/fz \
+ pick"git-it-on.plugin.zsh" \
+    peterhurford/git-it-on.zsh 
 
 export FZF_DEFAULT_COMMAND='fd --type f'
 
