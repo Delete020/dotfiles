@@ -19,6 +19,10 @@ source $ZSH/oh-my-zsh.sh
 alias zshconfig="vim ~/.zshrc"
 alias ohmyzsh="vim ~/.oh-my-zsh"
 alias nvimconfig='nvim $HOME/.config/nvim/init.vim'
+alias bspwmrc='nvim $HOME/.config/bspwm/bspwmrc'
+alias picomrc='nvim $HOME/.config/picom/picom.conf'
+alias sxhkbrc='nvim $HOME/.config/sxhkd/sxhkdrc'
+alias alacrc='nvim $HOME/.config/alacritty/alacritty.yml'
 
 # proxy
 alias setproxy="export http_proxy=socks5://127.0.0.1:1089 https_proxy=socks5://127.0.0.1:1089"
@@ -99,7 +103,23 @@ zinit wait="1" lucid light-mode for \
     Aloxaf/gencomp \
     wfxr/forgit
 
+zinit light-mode for \
+    blockf \
+        zsh-users/zsh-completions
+
+# 快速目录跳转
+zinit ice lucid wait='1'
+zinit light skywind3000/z.lua
+zinit light zdharma-continuum/history-search-multi-word
+
+zinit ice mv=":cht.sh -> cht.sh" atclone="chmod +x cht.sh" as="program"
+zinit snippet https://cht.sh/:cht.sh
+
+zinit ice mv=":zsh -> _cht" as="completion"
+zinit snippet https://cheat.sh/:zsh
+
 # fzf-tab
+zinit ice wait'1' lucid
 zinit light Aloxaf/fzf-tab
 zstyle ':fzf-tab:complete:_zlua:*' query-string input
 zstyle ':fzf-tab:complete:kill:argument-rest' fzf-preview 'ps --pid=$word -o cmd --no-headers -w -w'
@@ -107,16 +127,14 @@ zstyle ':fzf-tab:complete:kill:argument-rest' fzf-flags '--preview-window=down:3
 zstyle ':fzf-tab:complete:kill:*' popup-pad 0 3
 zstyle ':fzf-tab:complete:cd:*' fzf-preview 'exa -1 --color=always $realpath'
 zstyle ':fzf-tab:complete:cd:*' popup-pad 30 0
-zstyle ":completion:*:git-checkout:*" sort false
-zstyle ':completion:*:exa' file-sort modification
-zstyle ':completion:*:exa' sort false
 zstyle ":fzf-tab:*" fzf-flags --color=bg+:23
 zstyle ':fzf-tab:*' fzf-command ftb-tmux-popup
-
-# 快速目录跳转
-zinit ice lucid wait='1'
-zinit light skywind3000/z.lua
-zinit light zdharma-continuum/history-search-multi-word
+zstyle ':fzf-tab:*' switch-group ',' '.'
+zstyle ":completion:*:git-checkout:*" sort false
+zstyle ':completion:*' file-sort modification
+zstyle ':completion:*:exa' sort false
+zstyle ':completion:files' sort false
+zstyle ':fzf-tab:*:*argument-rest*' popup-pad 100 0
 
 #高亮 自动建议
 zinit wait lucid for \
@@ -126,8 +144,6 @@ zinit wait lucid for \
     zsh-users/zsh-autosuggestions \
  atload"!export HISTORY_SUBSTRING_SEARCH_HIGHLIGHT_FOUND='bg=yellow,fg=white,bold'" \
     zsh-users/zsh-history-substring-search \
- pick"zsh-interactive-cd.plugin.zsh" \
-    changyuheng/zsh-interactive-cd \
  pick"fz.plugin.zsh" \
     changyuheng/fz \
  pick"git-it-on.plugin.zsh" \

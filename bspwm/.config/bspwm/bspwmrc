@@ -1,15 +1,15 @@
 #! /bin/sh
 
 pgrep -x sxhkd > /dev/null || sxhkd &
-#picom -b 
-#qv2ray 
-#feh --bg-fill ~/Pictures/Mac/Daylight/macOS-Big-Sur-Daylight-Wallpaper-8.jpg 
+picom -b &
+qv2ray &
+feh --bg-fill ~/Pictures/Mac/Daylight/macOS-Big-Sur-Daylight-Wallpaper-8.jpg &
+$HOME/.config/polybar/launch.sh --shades & 
+export QT_QPA_PLATFORMTHEME="qt5ct" &
+wmname LG3D
 
-#$HOME/.config/polybar/launch.sh 
-#export QT_QPA_PLATFORMTHEME="qt5ct"
-
-#bspc monitor -d I II III IV V VI VII VIII IX X
-# bspc monitor eDP-1-1 -d I II III IV V VI VII VIII IX X
+bspc monitor -d I II III IV V VI VII VIII IX X
+ bspc monitor HDMI-A-0 -d I II III IV V VI VII VIII IX X
 
 bspc config border_width         1
 bspc config window_gap           8

@@ -31,5 +31,8 @@ Plug 'sheerun/vim-polyglot'
 " vimcdoc
 Plug 'yianwillis/vimcdoc'
 
+" vim game
+Plug 'ThePrimeagen/vim-be-good'
+
 " Initialize plugin system
 call plug#end() 
