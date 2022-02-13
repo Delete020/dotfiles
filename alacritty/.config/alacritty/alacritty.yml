@@ -173,6 +173,7 @@ key_bindings:
   - { key: Minus,          mods: Control,                 action: DecreaseFontSize }
   - { key: NumpadSubtract, mods: Control,                 action: DecreaseFontSize }
 
+
 debug:
   render_timer: false
   persistent_logging: false

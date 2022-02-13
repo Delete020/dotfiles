@@ -34,5 +34,8 @@ Plug 'yianwillis/vimcdoc'
 " vim game
 Plug 'ThePrimeagen/vim-be-good'
 
+" css color
+Plug 'ap/vim-css-color'
+
 " Initialize plugin system
 call plug#end() 
