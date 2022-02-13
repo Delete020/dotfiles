@@ -112,7 +112,11 @@ zinit ice lucid wait='1'
 zinit light skywind3000/z.lua
 zinit light zdharma-continuum/history-search-multi-word
 
-zinit ice mv=":cht.sh -> cht.sh" atclone="chmod +x cht.sh" as="program"
+# enhancd
+zinit ice as"program" pick"init.zsh" wait"2" lucid
+zinit light b4b4r07/enhancd
+
+zinit ice as"program" mv=":cht.sh -> cht.sh" atclone="chmod +x cht.sh" pick"cht.sh" 
 zinit snippet https://cht.sh/:cht.sh
 
 zinit ice mv=":zsh -> _cht" as="completion"
