@@ -14,9 +14,9 @@ Plug 'scrooloose/nerdcommenter'
 
 Plug 'christoomey/vim-tmux-navigator'
 
-Plug 'morhetz/gruvbox'
+Plug 'gruvbox-community/gruvbox'
 
-Plug 'HerringtonDarkholme/yats.vim' " TS Syntax
+" Plug 'HerringtonDarkholme/yats.vim' " TS Syntax
 
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
@@ -24,6 +24,19 @@ Plug 'vim-airline/vim-airline-themes'
 " Fuzzy finder
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
+
+" Neovim Tree shitter
+Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
+Plug 'nvim-treesitter/playground'
+
+" telescope requirements...
+Plug 'nvim-lua/popup.nvim'
+Plug 'nvim-lua/plenary.nvim'
+Plug 'nvim-telescope/telescope.nvim'
+Plug 'nvim-telescope/telescope-fzy-native.nvim'
+Plug 'ThePrimeagen/git-worktree.nvim'
+
+Plug 'ThePrimeagen/harpoon'
 
 " Better Syntax Support
 Plug 'sheerun/vim-polyglot'
