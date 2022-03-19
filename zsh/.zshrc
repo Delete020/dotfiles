@@ -14,68 +14,6 @@ plugins=(git sudo systemd archlinux history tmux)
 DISABLE_MAGIC_FUNCTIONS=true
 source $ZSH/oh-my-zsh.sh
 
-# aliases
-# configuration
-alias zshconfig="vim ~/.zshrc"
-alias ohmyzsh="vim ~/.oh-my-zsh"
-alias nvimconfig='nvim $HOME/.config/nvim/init.vim'
-alias bspwmrc='nvim $HOME/.config/bspwm/bspwmrc'
-alias picomrc='nvim $HOME/.config/picom/picom.conf'
-alias sxhkbrc='nvim $HOME/.config/sxhkd/sxhkdrc'
-alias alacrc='nvim $HOME/.config/alacritty/alacritty.yml'
-
-# proxy
-alias setproxy="export http_proxy=socks5://127.0.0.1:1089 https_proxy=socks5://127.0.0.1:1089"
-alias unsetproxy="unset http_proxy https_proxy"
-
-# pacman
-alias pacman='sudo pacman'
-alias paclean='pacman -Rns $(pacman -Qtdq)'
-
-# Changing Directories
-alias zc='z -c'      # 严格匹配当前路径的子路径
-alias zz='z -i'      # 使用交互式选择模式
-alias zf='z -I'      # 使用 fzf 对多个结果进行选择
-alias zb='z -b'      # 快速回到父目录
-alias zzz='z ~'
-alias cdb='cd -'
-alias ..='cd ..'
-alias ...='cd ../../../'
-alias ....='cd ../../../../'
-
-# p10kupdate
-alias p10kupdate='git -C ${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/themes/powerlevel10k pull'
-
-# ls
-DISABLE_LS_COLORS=true
-alias ls="exa -bh --color=auto --icons"
-alias ll='ls -l'
-alias la='ls -a'
-alias l="ls"      l.='ls -d .*'   la='ls -a'   ll='ls -lbt created' 
-
-alias cp='cp -iv'
-alias mv='mv -iv'
-alias ln='ln -iv'
-alias mkdir='mkdir -v -p'
-
-# Convenience
-alias vi='nvim'
-alias vim='nvim'
-alias fd="fd --hidden --exclude '.git'"
-alias btop='bashtop'
-alias hrg='history | rg'
-alias glow='glow -p'
-
-# Remove git from a project
-alias ungit="find . -name '.git' -exec rm -rf {} \;"
-
-# tmux
-alias tn='tmux new-session -s'                    # tmux new session
-alias ta='tmux attach -t'                         # tmux attach
-alias tl='tmux ls'                                # list
-alias tk='tmux kill-session -s'                   # kill session name
-
-
 # Zinit
 autoload -Uz _zinit
 (( ${+_comps} )) && _comps[zinit]=_zinit
@@ -101,43 +39,34 @@ zinit wait="1" lucid light-mode for \
     hlissner/zsh-autopair \
     hchbaw/zce.zsh \
     Aloxaf/gencomp \
-    wfxr/forgit
+    wfxr/forgit \
+    zdharma-continuum/history-search-multi-word
 
 zinit light-mode for \
     blockf \
         zsh-users/zsh-completions
 
 # 快速目录跳转
-zinit ice lucid wait='1'
+zinit ice lucid wait='0'
 zinit light skywind3000/z.lua
-zinit light zdharma-continuum/history-search-multi-word
-
-# enhancd
-zinit ice as"program" pick"init.zsh" wait"2" lucid
-zinit light b4b4r07/enhancd
-
-zinit ice as"program" mv=":cht.sh -> cht.sh" atclone="chmod +x cht.sh" pick"cht.sh" 
-zinit snippet https://cht.sh/:cht.sh
-
-zinit ice mv=":zsh -> _cht" as="completion"
-zinit snippet https://cheat.sh/:zsh
 
 # fzf-tab
 zinit ice wait'1' lucid
 zinit light Aloxaf/fzf-tab
-zstyle ':fzf-tab:complete:_zlua:*' query-string input
+#zstyle ':fzf-tab:complete:_zlua:*' query-string input
 zstyle ':fzf-tab:complete:kill:argument-rest' fzf-preview 'ps --pid=$word -o cmd --no-headers -w -w'
 zstyle ':fzf-tab:complete:kill:argument-rest' fzf-flags '--preview-window=down:3:wrap'
 zstyle ':fzf-tab:complete:kill:*' popup-pad 0 3
 zstyle ':fzf-tab:complete:cd:*' fzf-preview 'exa -1 --color=always $realpath'
 zstyle ':fzf-tab:complete:cd:*' popup-pad 30 0
-zstyle ":fzf-tab:*" fzf-flags --color=bg+:23
+zstyle ":fzf-tab:*" fzf-flags --color=bg+:+23
 zstyle ':fzf-tab:*' fzf-command ftb-tmux-popup
 zstyle ':fzf-tab:*' switch-group ',' '.'
 zstyle ":completion:*:git-checkout:*" sort false
 zstyle ':completion:*' file-sort modification
 zstyle ':completion:*:exa' sort false
 zstyle ':completion:files' sort false
+zstyle ':completion:*' list-colors ${(s.:.)LS_COLORS}
 zstyle ':fzf-tab:*:*argument-rest*' popup-pad 100 0
 
 #高亮 自动建议
@@ -146,14 +75,34 @@ zinit wait lucid for \
     zdharma-continuum/fast-syntax-highlighting \
  atload"!_zsh_autosuggest_start" \
     zsh-users/zsh-autosuggestions \
- atload"!export HISTORY_SUBSTRING_SEARCH_HIGHLIGHT_FOUND='bg=yellow,fg=white,bold'" \
-    zsh-users/zsh-history-substring-search \
- pick"fz.plugin.zsh" \
-    changyuheng/fz \
  pick"git-it-on.plugin.zsh" \
     peterhurford/git-it-on.zsh 
 
-export FZF_DEFAULT_COMMAND='fd --type f'
+# enhancd
+zinit ice as"program" pick"init.zsh" wait"2" lucid
+zinit light b4b4r07/enhancd
+export ENHANCD_FILTER=fzf:fzy:peco
+
+# bym
+zinit ice as"program" pick"bym" wait"0" lucid
+zinit light zetatez/bym
+
+# cheat.sh
+zinit wait'2a' lucid \
+  id-as'cht.sh' \
+  as'program' \
+  for https://cht.sh/:cht.sh
+zinit wait'2b' lucid \
+  id-as'cht-completion' \
+  has'rlwrap' \
+  mv'cht* -> _cht' \
+  as'completion' \
+  for https://cheat.sh/:zsh
+
+# alias
+source $HOME/.zsh_aliases
+# bindkey -v
+# eval "$(zoxide init zsh)"
 
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
@@ -161,6 +110,7 @@ export FZF_DEFAULT_COMMAND='fd --type f'
 #set Editor
 export VISUAL=nvim
 export EDITOR="$VISUAL"
+export FZF_DEFAULT_COMMAND='fd --type f'
 
 # npm
 PATH="$HOME/.node_modules/bin:$PATH"
@@ -186,3 +136,16 @@ export NNN_FIFO='/tmp/nnn.fifo'
 
 # rg
 export RIPGREP_CONFIG_PATH="$HOME/.ripgreprc"
+
+# fzf
+export FZF_DEFAULT_COMMAND='rg --files --no-ignore --hidden --follow -g "!{.git,node_modules}/*" 2>/dev/null'
+export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
+export FZF_CTRL_T_OPTS='--preview="bat --color=always --style=header {} 2>/dev/null" --preview-window=right:60%:wrap'
+export FZF_ALT_C_COMMAND='fd -t d -d 1'
+export FZF_ALT_C_OPTS='--preview="exa -1 --icons --git --git-ignore {}" --preview-window=right:60%:wrap'
+# FZF custom OneDark theme
+export FZF_DEFAULT_OPTS=$FZF_DEFAULT_OPTS' --ansi
+ --color=fg:#D8DEE9,bg:-1,hl:#A3BE8C
+ --color=fg+:#D8DEE9,bg+:#191e2a,hl+:#ffcc66
+ --color=info:#73d0ff,prompt:#be5046,pointer:#45cdff
+ --color=marker:#73d0ff,spinner:#73d0ff,header:#d4bfff'

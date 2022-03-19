@@ -1,0 +1,69 @@
+# configuration
+alias zshconfig="vim ~/.zshrc"
+alias ohmyzsh="vim ~/.oh-my-zsh"
+alias nvimconfig='nvim $HOME/.config/nvim/init.vim'
+alias bspwmrc='nvim $HOME/.config/bspwm/bspwmrc'
+alias picomrc='nvim $HOME/.config/picom/picom.conf'
+alias sxhkbrc='nvim $HOME/.config/sxhkd/sxhkdrc'
+alias alacrc='nvim $HOME/.config/alacritty/alacritty.yml'
+
+# proxy
+alias setproxy="export http_proxy=socks5://127.0.0.1:1089 https_proxy=socks5://127.0.0.1:1089"
+alias unsetproxy="unset http_proxy https_proxy"
+
+# p10kupdate
+alias p10kupdate='git -C ${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/themes/powerlevel10k pull'
+
+# pacman
+alias pacman='sudo pacman'
+alias paclean='pacman -Rns $(pacman -Qtdq)'
+
+# Changing Directories
+alias zc='z -c'      # 严格匹配当前路径的子路径
+alias zz='z -i'      # 使用交互式选择模式
+alias zf='z -I'      # 使用 fzf 对多个结果进行选择
+alias zb='z -b'      # 快速回到父目录
+alias cdb='cd -'
+alias ..='cd ..'
+alias ...='cd ../../../'
+alias ....='cd ../../../../'
+
+# ls
+# DISABLE_LS_COLORS=true
+alias ls="exa -bh --color=auto --icons"
+alias l="ls"  l.='ls -d .*'  la='ls -al'  lt='ls --tree' ll='ls -lbt created' 
+
+alias cp='cp -iv'
+alias mv='mv -iv'
+alias ln='ln -iv'
+alias mkdir='mkdir -v -p'
+
+# Convenience
+alias vi='nvim'
+alias vim='nvim'
+alias fd="fd --hidden --exclude '.git'"
+alias btop='bashtop'
+alias hrg='history | rg'
+alias glow='glow -p'
+
+# Remove git from a project
+alias ungit="find . -name '.git' -exec rm -rf {} \;"
+
+# tmux
+alias tn='tmux new-session -s'                    # tmux new session
+alias ta='tmux attach -t'                         # tmux attach
+alias tl='tmux ls'                                # list
+alias tk='tmux kill-session -s'                   # kill session name
+
+# bym
+# bym open
+alias bym-open="bym -o \"\$(fd --type f --hidden --exclude .git . './'|fzf --prompt='open>' --preview 'bat --color=always {}' --select-1 --exit-0|sed 's/ /\\ /g')\""
+bindkey -s '^F' 'bym-open\n'
+
+# bym open books
+alias bym-open-book='bym -o "$(fd -e pdf -e epub -e djvu -e mobi --exclude ~/go . "$HOME/Documents"|fzf --prompt="books>" --reverse --select-1 --exit-0|sed "s/ /\\ /g")"; if [ "$?" = "5" ]; then exit; fi'
+bindkey -s '^P' 'bym-open-book\n'
+
+# off Monitor
+alias doff='xrandr --output eDP --off'                                # list
+alias don='xrandr --output eDP --right-of HDMI-A-0'                   # kill session name
