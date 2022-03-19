@@ -3,12 +3,6 @@
 pgrep -x sxhkd > /dev/null || sxhkd &
 bash $HOME/.config/bspwm/starter.sh &
 bash $HOME/.config/bspwm/lock.sh &
-#picom -b &
-#qv2ray &
-#klipper &
-#feh --bg-fill ~/Pictures/Mac/Daylight/macOS-Big-Sur-Daylight-Wallpaper-8.jpg &
-#$HOME/.config/polybar/launch.sh --shades & 
-#wmname LG3D
 
 bspc monitor -d I II III IV V VI VII VIII IX X
 bspc monitor HDMI-A-0 -d I II III IV V VI VII VIII IX X
@@ -22,10 +16,25 @@ bspc config focused_border_color "#51A8DD"
 bspc config urgent_border_color  "#B58900"
 bspc config presel_border_color  "#7DB9DE"
 
-bspc config split_ratio          0.52
-bspc config borderless_monocle   true
-bspc config gapless_monocle      true
-bspc config single_monocle       true
+bspc config split_ratio          0.50
+bspc config borderless_monocle true
+bspc config gapless_monocle true
+bspc config single_monocle true
+bspc config initial_polarity second_child
+bspc config directional_focus_tightness high
+bspc config click_to_focus button1
+bspc config swallow_first_click true
+bspc config mapping_events_count -1
+bspc config ignore_ewmh_focus true
+bspc config ignore_ewmh_fullscreen all
+bspc config center_pseudo_tiled true
+bspc config honor_size_hints false
+bspc config focus_follows_pointer true
+bspc config pointer_follows_monitor true
+bspc config remove_disabled_monitors true
+bspc config remove_unplugged_monitors true
+
+bspc config external_rules_command "./bspwm-rules"
 
 bspc rule -a Gimp desktop='^8' state=floating follow=on
 bspc rule -a mplayer2 state=floating
@@ -33,5 +42,8 @@ bspc rule -a Kupfer.py focus=on
 bspc rule -a Screenkey manage=off
 bspc rule -a Google-chrome desktop='^2' follow=on
 bspc rule -a jetbrains-idea desktop='^3' follow=on 
-bspc rule -a obsidian desktop='^4' follow=on 
+bspc rule -a obsidian follow=on 
 bspc rule -a code desktop='^5' follow=on 
+bspc rule -a spotify desktop='^5' follow=on 
+bspc rule -a GoldenDict state=floating follow=on
+bspc rule -a lxappearance desktop='^0' follow=off

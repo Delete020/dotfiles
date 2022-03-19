@@ -7,7 +7,8 @@ super + Return
         alacritty	
 
 # program launcher
-super + @space
+# super + @space
+super + q
         rofi -show drun	
 
 # make sxhkd reload its configuration files:
@@ -71,7 +72,7 @@ super + bracket{left,right}
 	bspc desktop -f {prev,next}.local
 
 # focus the last node/desktop
-super + {grave,Tab}
+{alt, super} + Tab
 	bspc {node,desktop} -f last
 
 # focus the older or newer node in the focus history
@@ -82,7 +83,7 @@ super + {o,i}
 
 # focus or send to the given desktop
 super + {_,shift + }{1-9,0}
-	bspc {desktop -f,node -d} '^{1-9,10}'
+  bspc {desktop -f,node -d} '^{1-9,10}'   
 
 #
 # preselect
@@ -120,6 +121,23 @@ super + alt + shift + {h,j,k,l}
 super + {Left,Down,Up,Right}
 	bspc node -v {-20 0,0 20,0 -20,20 0}
 
+# swap
+super + apostrophe
+  bspc node --swap last; 
+
+#monitor
+super + shift + {Left,Right}
+	bspc node -m {west,east}; \
+	bspc monitor -f last
+
+# Rotate current leaf
+super + r
+	bspc node @parent -R 90
+
+# Rotate current display
+super + shift + r
+	bspc node @/ -R 90
+
 # volume control
 XF86AudioLowerVolume 
         amixer set Master 5%-
@@ -136,7 +154,7 @@ XF86MonBrightnessUp
 alt + shift + x
 		betterlockscreen -l dim && betterlockscreen -u ./Pictures/Wallpapers
 
-super + alt + c
+super + shift + e
 		google-chrome-stable &
 super + shift + f
 		dolphin &
