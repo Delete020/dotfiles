@@ -1,5 +1,6 @@
 # configuration
 alias zshconfig="vim ~/.zshrc"
+alias aliasrc="vim ~/.zsh_aliases"
 alias ohmyzsh="vim ~/.oh-my-zsh"
 alias nvimconfig='nvim $HOME/.config/nvim/init.vim'
 alias bspwmrc='nvim $HOME/.config/bspwm/bspwmrc'
@@ -41,10 +42,12 @@ alias mkdir='mkdir -v -p'
 # Convenience
 alias vi='nvim'
 alias vim='nvim'
+alias h='history | tail -100'
 alias fd="fd --hidden --exclude '.git'"
-alias btop='bashtop'
 alias hrg='history | rg'
 alias glow='glow -p'
+alias vsc='code .'
+alias cht='cht.sh'
 
 # Remove git from a project
 alias ungit="find . -name '.git' -exec rm -rf {} \;"
@@ -55,15 +58,42 @@ alias ta='tmux attach -t'                         # tmux attach
 alias tl='tmux ls'                                # list
 alias tk='tmux kill-session -s'                   # kill session name
 
-# bym
-# bym open
-alias bym-open="bym -o \"\$(fd --type f --hidden --exclude .git . './'|fzf --prompt='open>' --preview 'bat --color=always {}' --select-1 --exit-0|sed 's/ /\\ /g')\""
-bindkey -s '^F' 'bym-open\n'
-
-# bym open books
-alias bym-open-book='bym -o "$(fd -e pdf -e epub -e djvu -e mobi --exclude ~/go . "$HOME/Documents"|fzf --prompt="books>" --reverse --select-1 --exit-0|sed "s/ /\\ /g")"; if [ "$?" = "5" ]; then exit; fi'
-bindkey -s '^P' 'bym-open-book\n'
-
 # off Monitor
-alias doff='xrandr --output eDP --off'                                # list
-alias don='xrandr --output eDP --right-of HDMI-A-0'                   # kill session name
+alias doff='xrandr --output eDP --off'
+alias don='xrandr --output eDP --noprimary --right-of HDMI-A-0 --auto'
+
+# docker
+alias dks='sc-start docker'
+alias rediscli='docker exec -it myredis redis-cli'
+
+# chopin open
+alias chopin-open="chopin -o \"\$(fd --type f --hidden --exclude .git . './'|fzf --prompt='open>' --preview 'bat --color=always {}' --select-1 --exit-0|sed 's/ /\\ /g')\""
+bindkey -s '^F' 'chopin-open\n'
+
+# chopin exec
+alias chopin-exec="chopin -e \"\$(fd -e sh -e jl -e py -e tex -e c -e cpp -e go -e scala -e java -e rs -e sql . './'|fzf --prompt='exec>'  --preview 'bat --color=always {}' --select-1 --exit-0|sed 's/ /\\ /g')\""
+bindkey -s '^X' 'chopin-exec\n'
+
+# chopin cp
+alias chopin-cp="chopin -c \"\$(fd --type f --hidden --exclude .git . './'|fzf --prompt='cp>'  --preview 'bat --color=always {}' --select-1 --exit-0|sed 's/ /\\ /g')\""
+# bindkey -s "^N" 'chopin-cp\n'
+
+# chopin mv
+alias chopin-mv="chopin -m \"\$(fd --type f --hidden --exclude .git . './'|fzf --prompt='mv>' --preview 'bat --color=always {}' --select-1 --exit-0|sed 's/ /\\ /g')\""
+# bindkey -s "^V" 'chopin-mv\n'
+
+# chopin rm
+alias chopin-rm="chopin -r \"\$(fd --type f --hidden --exclude .git . './'|fzf --prompt='rm>' --preview 'bat --color=always {}' --select-1 --exit-0|sed 's/ /\\ /g')\""
+bindkey -s "^Z" 'chopin-rm\n'
+
+# chopin open books
+alias chopin-open-book="chopin -o \"\$(fd -e pdf -e epub -e djvu -e mobi --exclude ~/go . '$HOME/Notes' '$HOME/Documents'|fzf --prompt='books>' --reverse --select-1 --exit-0|sed 's/ /\\ /g')\";exit"
+bindkey -s '^P' 'chopin-open-book\n'
+
+# chopin open wiki
+alias chopin-open-wiki="chopin -o \"\$(fd --type f --exclude .git . -e md -e pdf '$HOME/Notes'|fzf --prompt='wikis>' --preview 'bat --color=always {}' --select-1 --exit-0|sed 's/ /\\ /g')\""
+bindkey -s '^N' 'chopin-open-wiki\n'
+
+# chopin open media
+alias chopin-open-media="chopin -o \"\$(fd -e jpg -e jpeg -e png -e gif -e bmp -e tiff -e mp3 -e flac -e mkv -e avi -e mp4 . '$HOME/Videos'|fzf --prompt='medias>' --reverse --select-1 --exit-0|sed 's/ /\\ /g')\";exit"
+bindkey -s '^V' 'chopin-open-media\n'

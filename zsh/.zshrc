@@ -9,7 +9,7 @@ export ZSH="/home/cancel/.oh-my-zsh"
 ZSH_THEME="powerlevel10k/powerlevel10k"
 HISTSIZE=2000
 
-plugins=(git sudo systemd archlinux history tmux)
+plugins=(git sudo systemd archlinux history tmux docker docker-compose)
 
 DISABLE_MAGIC_FUNCTIONS=true
 source $ZSH/oh-my-zsh.sh
@@ -51,17 +51,56 @@ zinit ice lucid wait='0'
 zinit light skywind3000/z.lua
 
 # fzf-tab
-zinit ice wait'1' lucid
+#zinit ice wait'1' lucid
+zinit ice wait lucid depth"1" atload"zicompinit; zicdreplay" blockf
 zinit light Aloxaf/fzf-tab
-#zstyle ':fzf-tab:complete:_zlua:*' query-string input
-zstyle ':fzf-tab:complete:kill:argument-rest' fzf-preview 'ps --pid=$word -o cmd --no-headers -w -w'
-zstyle ':fzf-tab:complete:kill:argument-rest' fzf-flags '--preview-window=down:3:wrap'
-zstyle ':fzf-tab:complete:kill:*' popup-pad 0 3
-zstyle ':fzf-tab:complete:cd:*' fzf-preview 'exa -1 --color=always $realpath'
-zstyle ':fzf-tab:complete:cd:*' popup-pad 30 0
-zstyle ":fzf-tab:*" fzf-flags --color=bg+:+23
-zstyle ':fzf-tab:*' fzf-command ftb-tmux-popup
+
 zstyle ':fzf-tab:*' switch-group ',' '.'
+
+zstyle ':completion:*:descriptions' format '[%d]'
+zstyle ':completion:*' list-colors ${(s.:.)LS_COLORS}
+zstyle ':completion:complete:*:options' sort false
+zstyle ':fzf-tab:complete:(cd|ls|exa|bat|cat|emacs|vi|vim|nvim):*' fzf-preview 'exa -1 --color=always $realpath 2>/dev/null'
+zstyle ':fzf-tab:complete:(-command-|-parameter-|-brace-parameter-|export|unset|expand):*' \
+	   fzf-preview 'echo ${(P)word}'
+
+# Preivew `kill` and `ps` commands
+zstyle ':completion:*:*:*:*:processes' command 'ps -u $USER -o pid,user,comm -w -w'
+zstyle ':fzf-tab:complete:(kill|ps):argument-rest' fzf-preview \
+       '[[ $group == "[process ID]" ]] &&
+        if [[ $OSTYPE == darwin* ]]; then
+           ps -p $word -o comm="" -w -w
+        elif [[ $OSTYPE == linux* ]]; then
+           ps --pid=$word -o cmd --no-headers -w -w
+        fi'
+zstyle ':fzf-tab:complete:(kill|ps):argument-rest' fzf-flags '--preview-window=down:3:wrap'
+zstyle ':fzf-tab:complete:systemctl-*:*' fzf-preview 'SYSTEMD_COLORS=1 systemctl status $word'
+
+# Preivew `git` commands
+zstyle ':fzf-tab:complete:git-(add|diff|restore):*' fzf-preview \
+	   'git diff $word | delta'
+zstyle ':fzf-tab:complete:git-log:*' fzf-preview \
+	   'git log --color=always $word'
+zstyle ':fzf-tab:complete:git-help:*' fzf-preview \
+	   'git help $word | bat -plman --color=always'
+zstyle ':fzf-tab:complete:git-show:*' fzf-preview \
+	   'case "$group" in
+	"commit tag") git show --color=always $word ;;
+	*) git show --color=always $word | delta ;;
+	esac'
+zstyle ':completion:*:git-checkout:*' sort false
+zstyle ':fzf-tab:complete:git-checkout:*' fzf-preview \
+	   'case "$group" in
+	"modified file") git diff $word | delta ;;
+	"recent commit object name") git show --color=always $word | delta ;;
+	*) git log --color=always $word ;;
+	esac'
+
+# Privew help
+zstyle ':fzf-tab:complete:(\\|)run-help:*' fzf-preview 'run-help $word'
+zstyle ':fzf-tab:complete:(\\|*/|)man:*' fzf-preview 'man $word'
+
+zstyle ":fzf-tab:*" fzf-flags --color=bg+:+23
 zstyle ":completion:*:git-checkout:*" sort false
 zstyle ':completion:*' file-sort modification
 zstyle ':completion:*:exa' sort false
@@ -83,9 +122,9 @@ zinit ice as"program" pick"init.zsh" wait"2" lucid
 zinit light b4b4r07/enhancd
 export ENHANCD_FILTER=fzf:fzy:peco
 
-# bym
-zinit ice as"program" pick"bym" wait"0" lucid
-zinit light zetatez/bym
+# chopin
+zinit ice as"program" pick"chopin" wait"0" lucid
+zinit light zetatez/chopin
 
 # cheat.sh
 zinit wait'2a' lucid \
@@ -98,6 +137,9 @@ zinit wait'2b' lucid \
   mv'cht* -> _cht' \
   as'completion' \
   for https://cheat.sh/:zsh
+
+zinit as="completion" for \
+    OMZP::fd/_fd
 
 # alias
 source $HOME/.zsh_aliases
@@ -115,17 +157,6 @@ export FZF_DEFAULT_COMMAND='fd --type f'
 # npm
 PATH="$HOME/.node_modules/bin:$PATH"
 export npm_config_prefix=~/.node_modules
-
-# tldr
-export TLDR_COLOR_NAME="cyan"
-export TLDR_COLOR_DESCRIPTION="white"
-export TLDR_COLOR_EXAMPLE="green"
-export TLDR_COLOR_COMMAND="red"
-export TLDR_COLOR_PARAMETER="white"
-export TLDR_CACHE_ENABLED=1
-export TLDR_CACHE_MAX_AGE=720
-export TLDR_PAGES_SOURCE_LOCATION="https://raw.githubusercontent.com/tldr-pages/tldr/master/pages"
-export TLDR_DOWNLOAD_CACHE_LOCATION="https://tldr-pages.github.io/assets/tldr.zip"
 
 # NNN
 export NNN_PLUG='f:finder;o:fzopen;p:preview-tabbed;d:diffs;v:imgview,c:fzcd;t:preview-tui'

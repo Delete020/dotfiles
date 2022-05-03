@@ -8,7 +8,7 @@ super + Return
 
 # program launcher
 # super + @space
-super + q
+super + shift + q
         rofi -show drun	
 
 # make sxhkd reload its configuration files:
@@ -164,3 +164,5 @@ super + shift + o
 		obsidian &
 super + shift + v
 		code &
+super + shift + p
+		spotify &

@@ -4,11 +4,11 @@ pgrep -x sxhkd > /dev/null || sxhkd &
 bash $HOME/.config/bspwm/starter.sh &
 bash $HOME/.config/bspwm/lock.sh &
 
-bspc monitor -d I II III IV V VI VII VIII IX X
+bspc monitor eDP I II III IV V VI VII VIII IX X
 bspc monitor HDMI-A-0 -d I II III IV V VI VII VIII IX X
 
 bspc config border_width         2
-bspc config window_gap           8
+bspc config window_gap           6
 
 # Border colors
 bspc config normal_border_color  "#373C38"
@@ -44,6 +44,6 @@ bspc rule -a Google-chrome desktop='^2' follow=on
 bspc rule -a jetbrains-idea desktop='^3' follow=on 
 bspc rule -a obsidian follow=on 
 bspc rule -a code desktop='^5' follow=on 
-bspc rule -a spotify desktop='^5' follow=on 
-bspc rule -a GoldenDict state=floating follow=on
+bspc rule -a Spotify desktop='^5' follow=on 
+bspc rule -a GoldenDict state=floating follow=on center=on
 bspc rule -a lxappearance desktop='^0' follow=off
