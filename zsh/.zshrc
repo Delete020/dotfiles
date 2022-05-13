@@ -1,20 +1,27 @@
+## p10k ============================================================================================
 if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
   source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
 fi
 
-source ~/.zinit/bin/zinit.zsh
-
+# omz ==============================================================================================
 export ZSH="/home/cancel/.oh-my-zsh"
 
 ZSH_THEME="powerlevel10k/powerlevel10k"
-HISTSIZE=2000
 
 plugins=(git sudo systemd archlinux history tmux docker docker-compose)
 
 DISABLE_MAGIC_FUNCTIONS=true
 source $ZSH/oh-my-zsh.sh
 
-# Zinit
+## history =========================================================================================
+HISTSIZE=10000                  # maximum history size in terminal's memory
+SAVEHIST=1000000                # maximum size of history file
+setopt HIST_IGNORE_SPACE        # ignore commands with leading space
+setopt HIST_IGNORE_DUPS         # do not put duplicated command into history list
+setopt HIST_REDUCE_BLANKS       # remove unnecessary blanks
+setopt INC_APPEND_HISTORY       # append command to history file immediately after execution
+
+## Zinit ===========================================================================================
 autoload -Uz _zinit
 (( ${+_comps} )) && _comps[zinit]=_zinit
 
@@ -28,19 +35,13 @@ zinit light-mode for \
 
 ### End of Zinit's installer chunk
 
+source ~/.zinit/bin/zinit.zsh
 autoload -Uz compinit promptinit
 compinit
 promptinit
 zstyle ':completion:*' menu select
 
-## 插件
-zinit wait="1" lucid light-mode for \
-    kevinhwang91/zsh-tmux-capture \
-    hlissner/zsh-autopair \
-    hchbaw/zce.zsh \
-    Aloxaf/gencomp \
-    wfxr/forgit \
-    zdharma-continuum/history-search-multi-word
+## zinit plugins ===================================================================================
 
 zinit light-mode for \
     blockf \
@@ -50,8 +51,7 @@ zinit light-mode for \
 zinit ice lucid wait='0'
 zinit light skywind3000/z.lua
 
-# fzf-tab
-#zinit ice wait'1' lucid
+# fzf-tab ===========================================================
 zinit ice wait lucid depth"1" atload"zicompinit; zicdreplay" blockf
 zinit light Aloxaf/fzf-tab
 
@@ -108,7 +108,7 @@ zstyle ':completion:files' sort false
 zstyle ':completion:*' list-colors ${(s.:.)LS_COLORS}
 zstyle ':fzf-tab:*:*argument-rest*' popup-pad 100 0
 
-#高亮 自动建议
+# 高亮 自动建议
 zinit wait lucid for \
  atinit"ZINIT[COMPINIT_OPTS]=-C; zpcompinit; zpcdreplay" \
     zdharma-continuum/fast-syntax-highlighting \
@@ -117,14 +117,25 @@ zinit wait lucid for \
  pick"git-it-on.plugin.zsh" \
     peterhurford/git-it-on.zsh 
 
-# enhancd
-zinit ice as"program" pick"init.zsh" wait"2" lucid
-zinit light b4b4r07/enhancd
-export ENHANCD_FILTER=fzf:fzy:peco
+zinit wait="1" lucid light-mode for \
+    kevinhwang91/zsh-tmux-capture \
+    hlissner/zsh-autopair \
+    hchbaw/zce.zsh \
+    Aloxaf/gencomp \
+    wfxr/forgit \
 
 # chopin
 zinit ice as"program" pick"chopin" wait"0" lucid
 zinit light zetatez/chopin
+
+# mcfly
+zinit ice lucid wait"0a" from"gh-r" as"program" atload'eval "$(mcfly init zsh)"' 
+zinit light cantino/mcfly
+
+# enhancd
+zinit ice as"program" pick"init.zsh" wait"2" lucid
+zinit light b4b4r07/enhancd
+export ENHANCD_FILTER=fzf:fzy:peco
 
 # cheat.sh
 zinit wait'2a' lucid \
@@ -141,13 +152,13 @@ zinit wait'2b' lucid \
 zinit as="completion" for \
     OMZP::fd/_fd
 
-# alias
+# To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
+[[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
+
+## alias env ===========================================================================================
 source $HOME/.zsh_aliases
 # bindkey -v
 # eval "$(zoxide init zsh)"
-
-# To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
-[[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
 
 #set Editor
 export VISUAL=nvim
@@ -160,7 +171,7 @@ export npm_config_prefix=~/.node_modules
 
 # NNN
 export NNN_PLUG='f:finder;o:fzopen;p:preview-tabbed;d:diffs;v:imgview,c:fzcd;t:preview-tui'
-#NNN bookmark
+# NNN bookmark
 export NNN_BMS='i:~/Pictures/Wallpapers;n:~/Documents/Notes'
 export NNN_SEL='/tmp/.sel'
 export NNN_FIFO='/tmp/nnn.fifo'
@@ -168,15 +179,35 @@ export NNN_FIFO='/tmp/nnn.fifo'
 # rg
 export RIPGREP_CONFIG_PATH="$HOME/.ripgreprc"
 
-# fzf
+## fzf
 export FZF_DEFAULT_COMMAND='rg --files --no-ignore --hidden --follow -g "!{.git,node_modules}/*" 2>/dev/null'
 export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
 export FZF_CTRL_T_OPTS='--preview="bat --color=always --style=header {} 2>/dev/null" --preview-window=right:60%:wrap'
 export FZF_ALT_C_COMMAND='fd -t d -d 1'
 export FZF_ALT_C_OPTS='--preview="exa -1 --icons --git --git-ignore {}" --preview-window=right:60%:wrap'
+
 # FZF custom OneDark theme
 export FZF_DEFAULT_OPTS=$FZF_DEFAULT_OPTS' --ansi
  --color=fg:#D8DEE9,bg:-1,hl:#A3BE8C
  --color=fg+:#D8DEE9,bg+:#191e2a,hl+:#ffcc66
  --color=info:#73d0ff,prompt:#be5046,pointer:#45cdff
  --color=marker:#73d0ff,spinner:#73d0ff,header:#d4bfff'
+
+ # mdv
+export MDV_THEME="729.8953"
+export MDV_CODE_THEME="729.8953"
+
+## func ===========================================================================================
+rga-fzf() {
+	RG_PREFIX="rga --files-with-matches"
+	local file
+	file="$(
+		FZF_DEFAULT_COMMAND="$RG_PREFIX '$1'" \
+			fzf --sort --preview="[[ ! -z {} ]] && rga --pretty --context 5 {q} {}" \
+				--phony -q "$1" \
+				--bind "change:reload:$RG_PREFIX {q}" \
+				--preview-window="70%:wrap"
+	)" &&
+	echo "opening $file" &&
+	xdg-open "$file"
+}

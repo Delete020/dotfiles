@@ -126,7 +126,7 @@ super + apostrophe
   bspc node --swap last; 
 
 #monitor
-super + shift + {Left,Right}
+super + ctrl + {Left,Right}
 	bspc node -m {west,east}; \
 	bspc monitor -f last
 
@@ -154,6 +154,7 @@ XF86MonBrightnessUp
 alt + shift + x
 		betterlockscreen -l dim && betterlockscreen -u ./Pictures/Wallpapers
 
+# application
 super + shift + e
 		google-chrome-stable &
 super + shift + f
@@ -165,4 +166,4 @@ super + shift + o
 super + shift + v
 		code &
 super + shift + p
-		spotify &
+		firefox &

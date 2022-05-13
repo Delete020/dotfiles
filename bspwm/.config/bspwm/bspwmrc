@@ -34,7 +34,7 @@ bspc config pointer_follows_monitor true
 bspc config remove_disabled_monitors true
 bspc config remove_unplugged_monitors true
 
-bspc config external_rules_command "./bspwm-rules"
+#bspc config external_rules_command "./bspwm-rules"
 
 bspc rule -a Gimp desktop='^8' state=floating follow=on
 bspc rule -a mplayer2 state=floating

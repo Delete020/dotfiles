@@ -1,5 +1,6 @@
 # configuration
 alias zshconfig="vim ~/.zshrc"
+alias sozsh="source ~/.zshrc"
 alias aliasrc="vim ~/.zsh_aliases"
 alias ohmyzsh="vim ~/.oh-my-zsh"
 alias nvimconfig='nvim $HOME/.config/nvim/init.vim'
@@ -48,6 +49,7 @@ alias hrg='history | rg'
 alias glow='glow -p'
 alias vsc='code .'
 alias cht='cht.sh'
+alias typora='typora --proxy-server="socks5://127.0.0.1:1089"'
 
 # Remove git from a project
 alias ungit="find . -name '.git' -exec rm -rf {} \;"
@@ -66,6 +68,9 @@ alias don='xrandr --output eDP --noprimary --right-of HDMI-A-0 --auto'
 alias dks='sc-start docker'
 alias rediscli='docker exec -it myredis redis-cli'
 
+#####################
+# Chopin            #
+#####################
 # chopin open
 alias chopin-open="chopin -o \"\$(fd --type f --hidden --exclude .git . './'|fzf --prompt='open>' --preview 'bat --color=always {}' --select-1 --exit-0|sed 's/ /\\ /g')\""
 bindkey -s '^F' 'chopin-open\n'
