@@ -100,7 +100,7 @@ zstyle ':fzf-tab:complete:git-checkout:*' fzf-preview \
 zstyle ':fzf-tab:complete:(\\|)run-help:*' fzf-preview 'run-help $word'
 zstyle ':fzf-tab:complete:(\\|*/|)man:*' fzf-preview 'man $word'
 
-zstyle ":fzf-tab:*" fzf-flags --color=bg+:+23
+# zstyle ":fzf-tab:*" fzf-flags --color=bg+:+23
 zstyle ":completion:*:git-checkout:*" sort false
 zstyle ':completion:*' file-sort modification
 zstyle ':completion:*:exa' sort false
@@ -191,8 +191,11 @@ export FZF_ALT_C_OPTS='--preview="exa -1 --icons --git --git-ignore {}" --previe
 export FZF_DEFAULT_OPTS=$FZF_DEFAULT_OPTS' --ansi
  --color=fg:#D8DEE9,bg:-1,hl:#A3BE8C
  --color=fg+:#D8DEE9,bg+:#191e2a,hl+:#ffcc66
- --color=info:#73d0ff,prompt:#be5046,pointer:#45cdff
+ --color=info:#DDB6F2,prompt:#be5046,pointer:#45cdff
  --color=marker:#73d0ff,spinner:#73d0ff,header:#d4bfff'
+
+# fzf catppuccin
+#export FZF_DEFAULT_OPTS='--color=bg+:#302D41,bg:-1,spinner:#F8BD96,hl:#F28FAD --color=fg:#D9E0EE,header:#F28FAD,info:#DDB6F2,pointer:#F8BD96 --color=marker:#F8BD96,fg+:#F2CDCD,prompt:#DDB6F2,hl+:#F28FAD'
 
  # mdv
 export MDV_THEME="729.8953"
@@ -212,3 +215,5 @@ rga-fzf() {
 	echo "opening $file" &&
 	xdg-open "$file"
 }
+
+#export CLASSPATH=~/Projects/IdeaProjects/ucb_cs61b_software_2022sp-master/lib/*

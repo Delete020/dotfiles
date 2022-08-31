@@ -3,7 +3,7 @@
 //----------------------
 
 configuration {
-	modi: 				"drun,run,filebrowser";
+	modi: 				"drun";
 	font: 				"Monaco 10";
 	show-icons: 		true;   
 	icon-theme:	 		"Papirus-Dark";	
@@ -12,7 +12,7 @@ configuration {
 
 
 	 filebrowser {
-      directory: "/ArchDisk";
+      directory: "/home/cancel";
       sorting-method: "name";
       directories-first: true;
    }

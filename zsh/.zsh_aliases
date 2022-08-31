@@ -46,13 +46,15 @@ alias vim='nvim'
 alias h='history | tail -100'
 alias fd="fd --hidden --exclude '.git'"
 alias hrg='history | rg'
+alias bat='bat --theme=Visual\ Studio\ Dark+'
 alias glow='glow -p'
 alias vsc='code .'
 alias cht='cht.sh'
 alias rgf='rga-fzf'
 alias typora='typora --proxy-server="socks5://127.0.0.1:1089"'
 alias cleet='bash ~/Projects/Script/leetcodeTitle.sh'
-alias jleet='bash ~/Projects/Script/leetcodeClass.sh'
+#alias jleet='bash ~/Projects/Script/leetcodeClass.sh'
+alias jleet='python3 $HOME/Projects/Script/leetcode.py'
 
 
 # Remove git from a project
