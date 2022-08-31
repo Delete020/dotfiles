@@ -22,6 +22,7 @@ setopt HIST_REDUCE_BLANKS       # remove unnecessary blanks
 setopt INC_APPEND_HISTORY       # append command to history file immediately after execution
 
 ## Zinit ===========================================================================================
+source ~/.zinit/bin/zinit.zsh
 autoload -Uz _zinit
 (( ${+_comps} )) && _comps[zinit]=_zinit
 
@@ -35,7 +36,6 @@ zinit light-mode for \
 
 ### End of Zinit's installer chunk
 
-source ~/.zinit/bin/zinit.zsh
 autoload -Uz compinit promptinit
 compinit
 promptinit
@@ -150,7 +150,8 @@ zinit wait'2b' lucid \
   for https://cheat.sh/:zsh
 
 zinit as="completion" for \
-    OMZP::fd/_fd
+    OMZP::fd/_fd \
+    OMZP::rust/_rustc
 
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh

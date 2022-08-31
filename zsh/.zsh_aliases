@@ -27,8 +27,8 @@ alias zf='z -I'      # 使用 fzf 对多个结果进行选择
 alias zb='z -b'      # 快速回到父目录
 alias cdb='cd -'
 alias ..='cd ..'
-alias ...='cd ../../../'
-alias ....='cd ../../../../'
+alias ...='cd ../../'
+alias ....='cd ../../../'
 
 # ls
 # DISABLE_LS_COLORS=true
@@ -49,7 +49,11 @@ alias hrg='history | rg'
 alias glow='glow -p'
 alias vsc='code .'
 alias cht='cht.sh'
+alias rgf='rga-fzf'
 alias typora='typora --proxy-server="socks5://127.0.0.1:1089"'
+alias cleet='bash ~/Projects/Script/leetcodeTitle.sh'
+alias jleet='bash ~/Projects/Script/leetcodeClass.sh'
+
 
 # Remove git from a project
 alias ungit="find . -name '.git' -exec rm -rf {} \;"
@@ -101,4 +105,4 @@ bindkey -s '^N' 'chopin-open-wiki\n'
 
 # chopin open media
 alias chopin-open-media="chopin -o \"\$(fd -e jpg -e jpeg -e png -e gif -e bmp -e tiff -e mp3 -e flac -e mkv -e avi -e mp4 . '$HOME/Videos'|fzf --prompt='medias>' --reverse --select-1 --exit-0|sed 's/ /\\ /g')\";exit"
-bindkey -s '^V' 'chopin-open-media\n'
+#bindkey -s '^V' 'chopin-open-media\n'

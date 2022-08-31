@@ -6,6 +6,7 @@ nmap ++ <plug>NERDCommenterToggle
 "autocmd StdinReadPre * let s:std_in=1
 "autocmd VimEnter * NERDTree
 
+let NERDTreeMinimalUI=1
 let g:NERDTreeGitStatusWithFlags = 1
 "let g:WebDevIconsUnicodeDecorateFolderNodes = 1
 "let g:NERDTreeGitStatusNodeColorization = 1

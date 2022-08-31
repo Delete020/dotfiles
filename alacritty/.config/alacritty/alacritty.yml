@@ -53,66 +53,124 @@ font:
 
 draw_bold_text_with_bright_colors: true
 
-# Oxide colors
-colors:
-  #primary:
-  #   background: '#212121'
-  #   foreground: '#c0c5ce'
-  #   bright_foreground: '#f3f4f5'
- 
-  # cursor:
-  #   text: '#212121'
-  #   cursor: '#c0c5ce'
- 
-  # normal:
-  #   black:   '#212121'
-  #   red:     '#e57373'
-  #   green:   '#a6bc69'
-  #   yellow:  '#fac863'
-  #   blue:    '#6699cc'
-  #   magenta: '#c594c5'
-  #   cyan:    '#5fb3b3'
-  #   white:   '#c0c5ce'
- 
-  # bright:
-  #   black:   '#5c5c5c'
-  #   red:     '#e57373'
-  #   green:   '#a6bc69'
-  #   yellow:  '#fac863'
-  #   blue:    '#6699cc'
-  #   magenta: '#c594c5'
-  #   cyan:    '#5fb3b3'
-  #   white:   '#f3f4f5'
-  primary:
-    background: '#262626'
-    foreground: '#edf0f5'
-    bright_foreground: '#fbfcfc'
+#####################
+# colors            #
+#####################
+color_schemes:
 
-  cursor:
-    text: '#212121'
-    cursor: '#c0c5ce'
+  mocha: &mocha
+    # Default colors
+    primary:
+      background: '#1E1E2E' # base
+      foreground: '#CDD6F4' # text
+      # Bright and dim foreground colors
+      dim_foreground: '#CDD6F4' # text
+      bright_foreground: '#CDD6F4' # text
 
-  normal:
-    black:   '#303030'
-    red:     '#cb4042'
-    green:   '#48d684'
-    yellow:  '#f9a55b'
-    blue:    '#2ea9df'
-    magenta: '#986db2'
-    cyan:    '#51a8dd'
-    white:   '#edf0f5'
+    # Cursor colors
+    cursor:
+      text: '#1E1E2E' # base
+      cursor: '#F5E0DC' # rosewater
+    vi_mode_cursor:
+      text: '#1E1E2E' # base
+      cursor: '#B4BEFE' # lavender
 
-  bright:
-    black:   '#7f8c8d'
-    red:     '#d75455'
-    green:   '#3dda92'
-    yellow:  '#fc9f4d'
-    blue:    '#00aa90'
-    magenta: '#884cc3'
-    cyan:    '#4785eb'
-    white:   '#fbfcfc'
+    # Search colors
+    search:
+      matches:
+        foreground: '#1E1E2E' # base
+        background: '#A6ADC8' # subtext0
+      focused_match:
+        foreground: '#1E1E2E' # base
+        background: '#A6E3A1' # green
+      bar:
+        foreground: '#1E1E2E' # base
+        background: '#A6ADC8' # subtext0
 
-  indexed_colors: []
+    # Keyboard regex hints
+    hints:
+      start:
+        foreground: '#1E1E2E' # base
+        background: '#F9E2AF' # yellow
+      end:
+        foreground: '#1E1E2E' # base
+        background: '#A6ADC8' # subtext0
+
+    # Selection colors
+    selection:
+      text: '#1E1E2E' # base
+      background: '#F5E0DC' # rosewater
+
+    # Normal colors
+    normal:
+      black:   '#45475A' # surface1
+      red:     '#F38BA8' # red
+      green:   '#A6E3A1' # green
+      yellow:  '#F9E2AF' # yellow
+      blue:    '#89B4FA' # blue
+      magenta: '#F5C2E7' # pink
+      cyan:    '#94E2D5' # teal
+      white:   '#BAC2DE' # subtext1
+
+    # Bright colors
+    bright:
+      black:   '#45475A' # surface1
+      red:     '#F38BA8' # red
+      green:   '#A6E3A1' # green
+      yellow:  '#F9E2AF' # yellow
+      blue:    '#89B4FA' # blue
+      magenta: '#F5C2E7' # pink
+      cyan:    '#94E2D5' # teal
+      white:   '#BAC2DE' # subtext1
+
+    # Dim colors
+    dim:
+      black:   '#45475A' # surface1
+      red:     '#F38BA8' # red
+      green:   '#A6E3A1' # green
+      yellow:  '#F9E2AF' # yellow
+      blue:    '#89B4FA' # blue
+      magenta: '#F5C2E7' # pink
+      cyan:    '#94E2D5' # teal
+      white:   '#BAC2DE' # subtext1
+
+  custom: &custom
+    primary:
+      background: '#262626'
+      foreground: '#EDF0F5'
+      bright_foreground: '#FBFCFC'
+  
+    cursor:
+      text: '#212121'
+      cursor: '#C0C5CE'
+  
+    selection:
+      text: '#1E1E2E' # base
+      background: '#FCFAF2' # rosewater
+
+    normal:
+      black:   '#303030'
+      red:     '#CB4042'
+      green:   '#3DDA92'
+      yellow:  '#F9A55B'
+      blue:    '#2EA9DF'
+      magenta: '#986DB2'
+      cyan:    '#51A8DD'
+      white:   '#EDF0F5'
+  
+    bright:
+      black:   '#7F8C8D'
+      red:     '#D75455'
+      green:   '#00AA90'
+      yellow:  '#FC9F4D'
+      blue:    '#7DB9DE'
+      magenta: '#884CC3'
+      cyan:    '#4785EB'
+      white:   '#FBFCFC'
+  
+    indexed_colors: []
+
+colors: *custom
 
 bell:
   animation: EaseOutExpo

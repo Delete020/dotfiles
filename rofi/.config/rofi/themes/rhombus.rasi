@@ -12,7 +12,7 @@ window
 	x-offset:                20px;
   y-offset:                  50px;
 	height:		             520px;
-	width:		             430px;
+	width:		             450px;
 	orientation:             horizontal;
   padding:                 10px;
 }

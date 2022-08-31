@@ -3,10 +3,10 @@
 //----------------------
 
 configuration {
-	modi: 			"drun,run,filebrowser";
-	font: 			"Monaco 10";
+	modi: 				"drun,run,filebrowser";
+	font: 				"Monaco 10";
 	show-icons: 		true;   
-	icon-theme:	 	"Zafiro-Icons";	
+	icon-theme:	 		"Papirus-Dark";	
 	display-drun: 		"";
 	display-run: 		"";
 
