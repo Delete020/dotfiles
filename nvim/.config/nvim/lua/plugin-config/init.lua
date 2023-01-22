@@ -1,3 +1,8 @@
+require("plugin-config/remap")
+require("plugin-config/set")
+require("plugin-config/plugins")
+require("impatient")
+
 function CreateNoremap(type, opts)
 	return function(lhs, rhs, bufnr)
 		bufnr = bufnr or 0
@@ -8,5 +13,6 @@ end
 Nnoremap = CreateNoremap("n", { noremap = true })
 Inoremap = CreateNoremap("i", { noremap = true })
 
-require("plugin-config/nvim-treesitter")
-require("plugin-config/telescope")
+vim.g.netrw_browse_split = 0
+vim.g.netrw_banner = 0
+vim.g.netrw_winsize = 25
