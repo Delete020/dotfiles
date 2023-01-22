@@ -30,15 +30,15 @@ font:
     style: Regular
 
   bold:
-    family: Hack
+    family: Hack Nerd Font
     style: Bold
 
   italic:
-    family: Hack
+    family: Hack Nerd Font
     style: Italic
 
   bold_italic:
-    family: Hack
+    family: Hack Nerd Font
     style: Bold Italic
 
   size: 14

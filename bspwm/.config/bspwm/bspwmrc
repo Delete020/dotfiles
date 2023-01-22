@@ -4,7 +4,7 @@ pgrep -x sxhkd > /dev/null || sxhkd &
 bash $HOME/.config/bspwm/starter.sh &
 bash $HOME/.config/bspwm/lock.sh &
 
-bspc monitor eDP I II III IV V VI VII VIII IX X
+bspc monitor -d I II III IV V VI VII VIII IX X
 bspc monitor HDMI-A-0 -d I II III IV V VI VII VIII IX X
 
 bspc config border_width         2

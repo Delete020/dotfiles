@@ -133,7 +133,7 @@ zinit ice lucid wait"0a" from"gh-r" as"program" atload'eval "$(mcfly init zsh)"'
 zinit light cantino/mcfly
 
 # enhancd
-zinit ice as"program" pick"init.zsh" wait"2" lucid
+zinit ice as"program" pick"init.sh" wait"2" lucid
 zinit light b4b4r07/enhancd
 export ENHANCD_FILTER=fzf:fzy:peco
 
