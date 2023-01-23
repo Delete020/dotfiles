@@ -140,9 +140,9 @@ super + shift + r
 
 # volume control
 XF86AudioLowerVolume 
-        amixer set Master 5%-
+        pulseaudio-control --volume-step 5 down
 XF86AudioRaiseVolume 
-        amixer set Master 5%+ 
+        pulseaudio-control --volume-step 5 up
 XF86AudioMute        
         amixer set Master toggle 
 # brightness control

@@ -217,3 +217,6 @@ rga-fzf() {
 }
 
 #export CLASSPATH=~/Projects/IdeaProjects/ucb_cs61b_software_2022sp-master/lib/*
+
+# To customize prompt, run `p10k configure` or edit ~/.dotfiles/zsh/.p10k.zsh.
+[[ ! -f ~/.dotfiles/zsh/.p10k.zsh ]] || source ~/.dotfiles/zsh/.p10k.zsh
