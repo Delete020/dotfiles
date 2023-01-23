@@ -97,5 +97,6 @@ return require('packer').startup(function(use)
     use('chaoren/vim-wordmotion')   -- better word motions through long strings
     use('lewis6991/gitsigns.nvim')  -- alternative airblade/vim-gitgutter
     use('lukas-reineke/indent-blankline.nvim')
+    use('lambdalisue/suda.vim')
 
 end)

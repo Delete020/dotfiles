@@ -59,5 +59,5 @@ vim.keymap.set(normal, "<leader>s", [[:%s/\<<C-r><C-w>\>/<C-r><C-w>/gI<Left><Lef
 vim.keymap.set(normal, "<leader>x", "<cmd>!chmod +x %<CR>", { silent = true })
 
 vim.keymap.set(normal, "<leader>mr", "<cmd>CellularAutomaton make_it_rain<CR>")
-vim.keymap.set(normal, "<leader><C-s>", "<cmd>w !sudo tee %CR>")
+vim.keymap.set(normal, "<leader><C-s>", "<cmd>SudaWrite<CR>")
 vim.keymap.set(normal, "<leader>uu", "<cmd>PackerSync<CR>")

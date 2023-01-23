@@ -221,6 +221,11 @@ _G.packer_plugins = {
     path = "/home/cancel/.local/share/nvim/site/pack/packer/start/rust.vim",
     url = "https://github.com/rust-lang/rust.vim"
   },
+  ["suda.vim"] = {
+    loaded = true,
+    path = "/home/cancel/.local/share/nvim/site/pack/packer/start/suda.vim",
+    url = "https://github.com/lambdalisue/suda.vim"
+  },
   ["telescope.nvim"] = {
     loaded = true,
     path = "/home/cancel/.local/share/nvim/site/pack/packer/start/telescope.nvim",
