@@ -14,6 +14,11 @@ return require('packer').startup(function(use)
         requires = { {'nvim-lua/plenary.nvim'} }
     }
 
+    use {
+        'nvim-telescope/telescope-fzf-native.nvim',
+        run = 'make'
+    }
+
     use({
         'rose-pine/neovim',
         as = 'rose-pine',
@@ -88,15 +93,23 @@ return require('packer').startup(function(use)
         config = function() require("nvim-autopairs").setup {} end
     }
 
-    use('yianwillis/vimcdoc')       --vimcdoc
-    use('ThePrimeagen/vim-be-good') --vim game
-    use('ap/vim-css-color')         --css color
-    use('rust-lang/rust.vim')       -- rust vim integration
-    use('tpope/vim-speeddating')    -- ctrl+a and ctrl+x on dates
-    use('Vonr/align.nvim')          -- align line content
-    use('chaoren/vim-wordmotion')   -- better word motions through long strings
-    use('lewis6991/gitsigns.nvim')  -- alternative airblade/vim-gitgutter
-    use('lukas-reineke/indent-blankline.nvim')
-    use('lambdalisue/suda.vim')
+    use {
+        'numToStr/Comment.nvim',
+        config = function()
+            require('Comment').setup()
+        end
+    }
+
+    use('yianwillis/vimcdoc')                  --vimcdoc
+    use('ThePrimeagen/vim-be-good')            --vim game
+    use('ap/vim-css-color')                    --css color
+    use('rust-lang/rust.vim')                  -- rust vim integration
+    use('tpope/vim-speeddating')               -- ctrl+a and ctrl+x on dates
+    use('Vonr/align.nvim')                     -- align line content
+    use('chaoren/vim-wordmotion')              -- better word motions through long strings
+    use('lewis6991/gitsigns.nvim')             -- alternative airblade/vim-gitgutter
+    use('lukas-reineke/indent-blankline.nvim') -- display blankline
+    use('lambdalisue/suda.vim')                -- sudo privilege save file
+    use('max397574/better-escape.nvim')        -- jj to escape insert mode
 
 end)

@@ -1,46 +1,58 @@
---vim.opt.guicursor = ""
+local opt = vim.opt
 
-vim.opt.nu = true
-vim.opt.relativenumber = true
+opt.nu = true
+opt.relativenumber = true
 
-vim.opt.tabstop = 4
-vim.opt.softtabstop = 4
-vim.opt.shiftwidth = 4
+opt.tabstop = 4
+opt.softtabstop = 4
+opt.shiftwidth = 4
 -- always uses spaces instead of tab characters
-vim.opt.expandtab = true
+opt.expandtab = true
 
-vim.opt.smartindent = true
+opt.smartindent = true
 
-vim.opt.wrap = false
+opt.wrap = false
 
-vim.opt.swapfile = false
-vim.opt.backup = false
-vim.opt.undodir = os.getenv("HOME") .. "/.vim/undodir"
-vim.opt.undofile = true
+opt.swapfile = false
+opt.backup = false
+opt.undodir = os.getenv("HOME") .. "/.vim/undodir"
+opt.undofile = true
 
-vim.opt.hlsearch = false
-vim.opt.incsearch = true
+opt.hlsearch = true
+opt.incsearch = true
 
-vim.opt.termguicolors = true
+opt.termguicolors = true
 
-vim.opt.scrolloff = 8
-vim.opt.signcolumn = "yes"
-vim.opt.isfname:append("@-@")
+opt.scrolloff = 8
+opt.signcolumn = "yes"
+opt.isfname:append("@-@")
 
-vim.opt.updatetime = 50
+opt.updatetime = 50
 
-vim.opt.colorcolumn = "80"
+opt.colorcolumn = "80"
 
-vim.opt.smarttab = true
-vim.opt.cindent = true
+opt.smarttab = true
+opt.cindent = true
 
 -- search
-vim.opt.ignorecase = true
-vim.opt.smartcase = true
+opt.ignorecase = true
+opt.smartcase = true
 
-vim.opt.backspace = {'eol', 'start', 'indent'}
+opt.backspace = {'eol', 'start', 'indent'}
 
-vim.opt.mouse = 'a'
-vim.opt.wildignore:append({'*.pyc', '*_build/*', '**/coverage/*', '**/node_modules/*', '**/.git/*','*.so', '*.o'})
-vim.opt.wildmenu = true
---vim.opt.wildmode = 'list:longest,full'
+opt.mouse = 'a'
+opt.wildignore:append({'*.pyc', '*_build/*', '**/coverage/*', '**/node_modules/*', '**/.git/*','*.so', '*.o'})
+opt.wildmenu = true
+
+opt.undofile = true
+opt.undolevels = 10000
+opt.updatetime = 200 -- save swap file and trigger CursorHold
+
+opt.autowrite = true -- enable auto write
+opt.joinspaces = false -- No double spaces with join after a dot
+opt.laststatus = 0
+opt.list = true -- Show some invisible characters (tabs...
+opt.grepprg = "rg --vimgrep"
+
+-- fix markdown indentation settings
+vim.g.markdown_recommended_style = 0
