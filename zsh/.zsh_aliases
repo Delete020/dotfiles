@@ -3,11 +3,13 @@ alias zshconfig="vim ~/.zshrc"
 alias sozsh="source ~/.zshrc"
 alias aliasrc="vim ~/.zsh_aliases"
 alias ohmyzsh="vim ~/.oh-my-zsh"
-alias nvimconfig='nvim $HOME/.config/nvim/init.vim'
 alias bspwmrc='nvim $HOME/.config/bspwm/bspwmrc'
 alias picomrc='nvim $HOME/.config/picom/picom.conf'
 alias sxhkbrc='nvim $HOME/.config/sxhkd/sxhkdrc'
 alias alacrc='nvim $HOME/.config/alacritty/alacritty.yml'
+alias vimconfigPlugin='nvim $HOME/.config/nvim/lua/plugin-config/plugins.lua'
+alias vimconfigMap='nvim $HOME/.config/nvim/lua/plugin-config/remap.lua'
+alias vimconfigSet='nvim $HOME/.config/nvim/lua/plugin-config/set.lua'
 
 # proxy
 alias setproxy="export http_proxy=socks5://127.0.0.1:1089 https_proxy=socks5://127.0.0.1:1089"
@@ -32,12 +34,13 @@ alias ....='cd ../../../'
 
 # ls
 # DISABLE_LS_COLORS=true
-alias ls="exa -bh --color=auto --icons"
-alias l="ls"  l.='ls -d .*'  la='ls -al'  lt='ls --tree' ll='ls -lbt created' 
+alias ls="exa -bh --color=auto --icons --group-directories-first"
+alias l="ls"  l.='ls -d .*'  la='ls -al'  lt='ls --tree' ll='ls -lbt created'
 
 alias cp='cp -iv'
 alias mv='mv -iv'
 alias ln='ln -iv'
+alias rm='rm -r'
 alias mkdir='mkdir -v -p'
 
 # Convenience
@@ -75,36 +78,22 @@ alias dks='sc-start docker'
 alias rediscli='docker exec -it myredis redis-cli'
 
 #####################
-# Chopin            #
+# Chopin Lazy       #
 #####################
-# chopin open
-alias chopin-open="chopin -o \"\$(fd --type f --hidden --exclude .git . './'|fzf --prompt='open>' --preview 'bat --color=always {}' --select-1 --exit-0|sed 's/ /\\ /g')\""
-bindkey -s '^F' 'chopin-open\n'
+alias lazy-open="lazy -o \"\$(fd --type f --hidden --exclude .git . './'|fzf --prompt='open>' --preview 'lazy -p {}' --select-1 --exit-0)\""
+alias lazy-exec="lazy -e \"\$(fd -e sh -e jl -e py -e tex -e c -e cpp -e go -e scala -e java -e rs -e sql --exclude .git . './'|fzf --prompt='exec>' --preview 'lazy -p {}' --select-1 --exit-0)\""
+alias lazy-copy="lazy -c \"\$(fd --type f --hidden --exclude .git . './'|fzf --prompt='copy>' --preview 'lazy -p {}' --select-1 --exit-0)\""
+alias lazy-rename="lazy -r \"\$(fd --type f --hidden --exclude .git . './'|fzf --prompt='rename>' --preview 'lazy -p {}' --select-1 --exit-0)\""
+alias lazy-delete="lazy -d \"\$(fd --type f --hidden --exclude .git . './'|fzf --prompt='delete>' --preview 'lazy -p {}' --select-1 --exit-0)\""
+alias lazy-open-wiki="lazy -o \"\$(fd --type f --hidden --exclude .git . '$HOME/Notes'|fzf --prompt='wikis>' --preview 'lazy -p {}' --select-1 --exit-0)\""
+alias lazy-open-book="lazy -o \"\$(fd -e pdf -e epub -e djvu -e mobi --exclude .git . '$HOME/Notes' '$HOME/Documents'|fzf --prompt='books>' --preview 'lazy -p {}' --reverse --select-1 --exit-0)\""
+alias lazy-open-media="lazy -o \"\$(fd -e jpg -e jpeg -e png -e gif -e bmp -e tiff -e mp3 -e flac -e mkv -e avi -e mp4 --exclude .git . '$HOME/Music/'|fzf --prompt='medias>' --preview 'lazy -p {}' --reverse --select-1 --exit-0)\""
 
-# chopin exec
-alias chopin-exec="chopin -e \"\$(fd -e sh -e jl -e py -e tex -e c -e cpp -e go -e scala -e java -e rs -e sql . './'|fzf --prompt='exec>'  --preview 'bat --color=always {}' --select-1 --exit-0|sed 's/ /\\ /g')\""
-bindkey -s '^X' 'chopin-exec\n'
-
-# chopin cp
-alias chopin-cp="chopin -c \"\$(fd --type f --hidden --exclude .git . './'|fzf --prompt='cp>'  --preview 'bat --color=always {}' --select-1 --exit-0|sed 's/ /\\ /g')\""
-# bindkey -s "^N" 'chopin-cp\n'
-
-# chopin mv
-alias chopin-mv="chopin -m \"\$(fd --type f --hidden --exclude .git . './'|fzf --prompt='mv>' --preview 'bat --color=always {}' --select-1 --exit-0|sed 's/ /\\ /g')\""
-# bindkey -s "^V" 'chopin-mv\n'
-
-# chopin rm
-alias chopin-rm="chopin -r \"\$(fd --type f --hidden --exclude .git . './'|fzf --prompt='rm>' --preview 'bat --color=always {}' --select-1 --exit-0|sed 's/ /\\ /g')\""
-bindkey -s "^Z" 'chopin-rm\n'
-
-# chopin open books
-alias chopin-open-book="chopin -o \"\$(fd -e pdf -e epub -e djvu -e mobi --exclude ~/go . '$HOME/Notes' '$HOME/Documents'|fzf --prompt='books>' --reverse --select-1 --exit-0|sed 's/ /\\ /g')\";exit"
-bindkey -s '^P' 'chopin-open-book\n'
-
-# chopin open wiki
-alias chopin-open-wiki="chopin -o \"\$(fd --type f --exclude .git . -e md -e pdf '$HOME/Notes'|fzf --prompt='wikis>' --preview 'bat --color=always {}' --select-1 --exit-0|sed 's/ /\\ /g')\""
-bindkey -s '^N' 'chopin-open-wiki\n'
-
-# chopin open media
-alias chopin-open-media="chopin -o \"\$(fd -e jpg -e jpeg -e png -e gif -e bmp -e tiff -e mp3 -e flac -e mkv -e avi -e mp4 . '$HOME/Videos'|fzf --prompt='medias>' --reverse --select-1 --exit-0|sed 's/ /\\ /g')\";exit"
-#bindkey -s '^V' 'chopin-open-media\n'
+bindkey -s '^F' 'lazy-open\n'
+bindkey -s '^X' 'lazy-exec\n'
+# bindkey -s "^N" 'lazy-copy\n'
+# bindkey -s "^V" 'lazy-rename\n'
+bindkey -s "^Z" 'lazy-delete\n'
+# bindkey -s '^W' 'lazy-open-wiki\n'
+bindkey -s '^P' 'lazy-open-book\n'
+# bindkey -s '^A' 'lazy-open-media\n'

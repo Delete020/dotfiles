@@ -14,7 +14,7 @@ DISABLE_MAGIC_FUNCTIONS=true
 source $ZSH/oh-my-zsh.sh
 
 ## history =========================================================================================
-HISTSIZE=10000                  # maximum history size in terminal's memory
+HISTSIZE=1000000                # maximum history size in terminal's memory
 SAVEHIST=1000000                # maximum size of history file
 setopt HIST_IGNORE_SPACE        # ignore commands with leading space
 setopt HIST_IGNORE_DUPS         # do not put duplicated command into history list
@@ -29,10 +29,7 @@ autoload -Uz _zinit
 # Load a few important annexes, without Turbo
 # (this is currently required for annexes)
 zinit light-mode for \
-    zdharma-continuum/zinit-annex-rust \
-    zdharma-continuum/zinit-annex-readurl \
-    zdharma-continuum/zinit-annex-patch-dl \
-    zdharma-continuum/zinit-annex-bin-gem-node
+    zdharma-continuum/zinit-annex-{'bin-gem-node','binary-symlink','patch-dl','submods','rust','readurl'}
 
 ### End of Zinit's installer chunk
 
@@ -42,14 +39,9 @@ promptinit
 zstyle ':completion:*' menu select
 
 ## zinit plugins ===================================================================================
-
-zinit light-mode for \
-    blockf \
-        zsh-users/zsh-completions
-
-# 快速目录跳转
-zinit ice lucid wait='0'
-zinit light skywind3000/z.lua
+# Recommended Be Loaded Last.
+zinit ice wait blockf lucid atpull'zinit creinstall -q .'
+zinit load zsh-users/zsh-completions
 
 # fzf-tab ===========================================================
 zinit ice wait lucid depth"1" atload"zicompinit; zicdreplay" blockf
@@ -108,34 +100,28 @@ zstyle ':completion:files' sort false
 zstyle ':completion:*' list-colors ${(s.:.)LS_COLORS}
 zstyle ':fzf-tab:*:*argument-rest*' popup-pad 100 0
 
-# 高亮 自动建议
-zinit wait lucid for \
+zinit wait lucid light-mode for \
  atinit"ZINIT[COMPINIT_OPTS]=-C; zpcompinit; zpcdreplay" \
     zdharma-continuum/fast-syntax-highlighting \
  atload"!_zsh_autosuggest_start" \
     zsh-users/zsh-autosuggestions \
  pick"git-it-on.plugin.zsh" \
-    peterhurford/git-it-on.zsh 
+    peterhurford/git-it-on.zsh
 
 zinit wait="1" lucid light-mode for \
     kevinhwang91/zsh-tmux-capture \
     hlissner/zsh-autopair \
     hchbaw/zce.zsh \
     Aloxaf/gencomp \
-    wfxr/forgit \
+    wfxr/forgit
 
-# chopin
-zinit ice as"program" pick"chopin" wait"0" lucid
-zinit light zetatez/chopin
+# chopin lazy
+zinit ice as"program" pick"lazy" atclone"cargo install --path ." lucid wait"1"
+zinit light zetatez/lazy
 
 # mcfly
 zinit ice lucid wait"0a" from"gh-r" as"program" atload'eval "$(mcfly init zsh)"' 
 zinit light cantino/mcfly
-
-# enhancd
-zinit ice as"program" pick"init.sh" wait"2" lucid
-zinit light b4b4r07/enhancd
-export ENHANCD_FILTER=fzf:fzy:peco
 
 # cheat.sh
 zinit wait'2a' lucid \
@@ -151,7 +137,10 @@ zinit wait'2b' lucid \
 
 zinit as="completion" for \
     OMZP::fd/_fd \
-    OMZP::rust/_rustc
+    OMZP::rust/_rustc \
+    https://github.com/junegunn/fzf/raw/master/shell/completion.zsh
+
+eval "$(zoxide init zsh)"
 
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
@@ -159,7 +148,6 @@ zinit as="completion" for \
 ## alias env ===========================================================================================
 source $HOME/.zsh_aliases
 # bindkey -v
-# eval "$(zoxide init zsh)"
 
 #set Editor
 export VISUAL=nvim
@@ -194,12 +182,10 @@ export FZF_DEFAULT_OPTS=$FZF_DEFAULT_OPTS' --ansi
  --color=info:#DDB6F2,prompt:#be5046,pointer:#45cdff
  --color=marker:#73d0ff,spinner:#73d0ff,header:#d4bfff'
 
-# fzf catppuccin
-#export FZF_DEFAULT_OPTS='--color=bg+:#302D41,bg:-1,spinner:#F8BD96,hl:#F28FAD --color=fg:#D9E0EE,header:#F28FAD,info:#DDB6F2,pointer:#F8BD96 --color=marker:#F8BD96,fg+:#F2CDCD,prompt:#DDB6F2,hl+:#F28FAD'
-
  # mdv
 export MDV_THEME="729.8953"
 export MDV_CODE_THEME="729.8953"
+export XDG_CONFIG_HOME=$HOME/.config
 
 ## func ===========================================================================================
 rga-fzf() {
