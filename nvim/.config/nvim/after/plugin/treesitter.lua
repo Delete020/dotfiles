@@ -1,5 +1,6 @@
+local highlights = require("rose-pine.plugins.markid")
 require'nvim-treesitter.configs'.setup {
-  ensure_installed = {"html", "css", "vim", "lua", "javascript", "typescript", "tsx", "bash", "c", "java", "rust", "python", "toml", "json"},
+  ensure_installed = {"html", "css", "vim", "lua", "javascript", "typescript", "tsx", "bash", "c", "java", "rust", "python", "toml", "json","r"},
   -- Install parsers synchronously (only applied to `ensure_installed`)
   sync_install = false,
 
@@ -16,6 +17,7 @@ require'nvim-treesitter.configs'.setup {
     -- Using this option may slow down your editor, and you may see some duplicate highlights.
     -- Instead of true it can also be a list of languages
     additional_vim_regex_highlighting = false,
+     colors = highlights,
   },
   -- 启用增量选择
   incremental_selection = {
@@ -32,8 +34,8 @@ require'nvim-treesitter.configs'.setup {
     enable = true
   },
 
-  textobjects = { 
-    enable = true 
+  textobjects = {
+    enable = true
   },
 
 }

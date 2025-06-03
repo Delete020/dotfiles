@@ -1,78 +1,50 @@
--- This file can be loaded by calling `lua require('plugins')` from your init.vim
+return {
 
--- Only required if you have packer configured as `opt`
-vim.cmd.packadd('packer.nvim')
-
-return require('packer').startup(function(use)
-    -- Packer can manage itself
-    use 'wbthomason/packer.nvim'
-    use 'lewis6991/impatient.nvim'
-
-    use {
-        'nvim-telescope/telescope.nvim', tag = '0.1.0',
-        -- or                            , branch = '0.1.x',
-        requires = { {'nvim-lua/plenary.nvim'} }
-    }
-
-    use {
-        'nvim-telescope/telescope-fzf-native.nvim',
-        run = 'make'
-    }
-
-    use({
+    {
         'rose-pine/neovim',
-        as = 'rose-pine',
+        name = 'rose-pine',
         config = function()
             vim.cmd('colorscheme rose-pine')
         end
-    })
+    },
 
-    use({'nvim-treesitter/nvim-treesitter', run = ':TSUpdate'})
-    use('nvim-treesitter/playground')
-    use('theprimeagen/harpoon')
-    use('mbbill/undotree')
-    use('tpope/vim-fugitive')
+    { -- Useful plugin to show you pending keybinds.
+        'folke/which-key.nvim',
+        event = 'VeryLazy', -- Sets the loading event to 'VimEnter'
+        keys = {
+            ['<leader>c'] = { group = '[C]ode', _ = 'which_key_ignore' },
+            ['<leader>d'] = { group = '[D]ocument', _ = 'which_key_ignore' },
+            ['<leader>r'] = { group = '[R]ename', _ = 'which_key_ignore' },
+            ['<leader>s'] = { group = '[S]earch', _ = 'which_key_ignore' },
+            ['<leader>w'] = { group = '[W]orkspace', _ = 'which_key_ignore' },
+        },
+    },
 
-    use {
-        'VonHeikemen/lsp-zero.nvim',
-        requires = {
-            -- LSP Support
-            {'neovim/nvim-lspconfig'},
-            {'williamboman/mason.nvim'},
-            {'williamboman/mason-lspconfig.nvim'},
+    {'nvim-treesitter/nvim-treesitter', build = ':TSUpdate'},
 
-            -- Autocompletion
-            {'hrsh7th/nvim-cmp'},
-            {'hrsh7th/cmp-buffer'},
-            {'hrsh7th/cmp-path'},
-            {'saadparwaiz1/cmp_luasnip'},
-            {'hrsh7th/cmp-nvim-lsp'},
-            {'hrsh7th/cmp-nvim-lua'},
+    'nvim-treesitter/playground',
+    'theprimeagen/harpoon',
+    'mbbill/undotree',
+    'tpope/vim-fugitive',
 
-            -- Snippets
-            {'L3MON4D3/LuaSnip'},
-            {'rafamadriz/friendly-snippets'},
-        }
-    }
+    'folke/zen-mode.nvim',
+    'github/copilot.vim',
+    'eandrju/cellular-automaton.nvim',
 
-    use('folke/zen-mode.nvim')
-    use('github/copilot.vim')
-    use('eandrju/cellular-automaton.nvim')
-
-    use {
+    {
         'nvim-tree/nvim-tree.lua',
-        requires = {
+        dependencies = {
             'nvim-tree/nvim-web-devicons', -- optional, for file icons
         },
-        tag = 'nightly' -- optional, updated every week. (see issue #1193)
-    }
+        --tag = 'nightly' -- optional, updated every week. (see issue #1193)
+    },
 
-    use {
+    {
         'nvim-lualine/lualine.nvim',
-        requires = { 'kyazdani42/nvim-web-devicons', opt = true }
-    }
+        dependencies = { 'nvim-tree/nvim-web-devicons' }
+    },
 
-    use({
+    {
         "themercorp/themer.lua",
         config = function()
 	      require("themer").setup({
@@ -86,30 +58,40 @@ return require('packer').startup(function(use)
 	          },
 	      })
         end
-    })
+    },
 
-    use {
+    {
         "windwp/nvim-autopairs",
         config = function() require("nvim-autopairs").setup {} end
-    }
+    },
 
-    use {
+    {
         'numToStr/Comment.nvim',
         config = function()
             require('Comment').setup()
         end
-    }
+    },
 
-    use('yianwillis/vimcdoc')                  --vimcdoc
-    use('ThePrimeagen/vim-be-good')            --vim game
-    use('ap/vim-css-color')                    --css color
-    use('rust-lang/rust.vim')                  -- rust vim integration
-    use('tpope/vim-speeddating')               -- ctrl+a and ctrl+x on dates
-    use('Vonr/align.nvim')                     -- align line content
-    use('chaoren/vim-wordmotion')              -- better word motions through long strings
-    use('lewis6991/gitsigns.nvim')             -- alternative airblade/vim-gitgutter
-    use('lukas-reineke/indent-blankline.nvim') -- display blankline
-    use('lambdalisue/suda.vim')                -- sudo privilege save file
-    use('max397574/better-escape.nvim')        -- jj to escape insert mode
+    {
+        'L3MON4D3/LuaSnip',
+        -- follow latest release.
+        version = "v2.*", -- Replace <CurrentMajor> by the latest released major (first number of latest release)
+        -- install jsregexp (optional!).
+        build = "make install_jsregexp"
+    },
 
-end)
+    'lewis6991/impatient.nvim',
+    'yianwillis/vimcdoc',                  --vimcdoc
+    'ThePrimeagen/vim-be-good',            --vim game
+    'ap/vim-css-color',                    --css color
+    'rust-lang/rust.vim',                  -- rust vim integration
+    'tpope/vim-speeddating',               -- ctrl+a and ctrl+x on dates
+    'Vonr/align.nvim',                     -- align line content
+    'chaoren/vim-wordmotion',              -- better word motions through long strings
+    'lewis6991/gitsigns.nvim',             -- alternative airblade/vim-gitgutter
+    'lukas-reineke/indent-blankline.nvim', -- display blankline
+    'lambdalisue/suda.vim',                -- sudo privilege save file
+    'max397574/better-escape.nvim',        -- jj to escape insert mode
+    'tpope/vim-sleuth',                    -- Detect tabstop and shiftwidth automatically
+    'stevearc/conform.nvim',
+}

@@ -2,11 +2,6 @@
 alias zshconfig="vim ~/.zshrc"
 alias sozsh="source ~/.zshrc"
 alias aliasrc="vim ~/.zsh_aliases"
-alias ohmyzsh="vim ~/.oh-my-zsh"
-alias bspwmrc='nvim $HOME/.config/bspwm/bspwmrc'
-alias picomrc='nvim $HOME/.config/picom/picom.conf'
-alias sxhkbrc='nvim $HOME/.config/sxhkd/sxhkdrc'
-alias alacrc='nvim $HOME/.config/alacritty/alacritty.yml'
 alias vimconfigPlugin='nvim $HOME/.config/nvim/lua/plugin-config/plugins.lua'
 alias vimconfigMap='nvim $HOME/.config/nvim/lua/plugin-config/remap.lua'
 alias vimconfigSet='nvim $HOME/.config/nvim/lua/plugin-config/set.lua'
@@ -15,18 +10,14 @@ alias vimconfigSet='nvim $HOME/.config/nvim/lua/plugin-config/set.lua'
 alias setproxy="export http_proxy=socks5://127.0.0.1:1089 https_proxy=socks5://127.0.0.1:1089"
 alias unsetproxy="unset http_proxy https_proxy"
 
-# p10kupdate
-alias p10kupdate='git -C ${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/themes/powerlevel10k pull'
-
-# pacman
-alias pacman='sudo pacman'
-alias paclean='pacman -Rns $(pacman -Qtdq)'
+# zinit update
+alias ziupdate='zinit self-update && zinit update -a -p && zinit compinit'
 
 # Changing Directories
-alias zc='z -c'      # 严格匹配当前路径的子路径
-alias zz='z -i'      # 使用交互式选择模式
-alias zf='z -I'      # 使用 fzf 对多个结果进行选择
-alias zb='z -b'      # 快速回到父目录
+#alias zc='z -c'      # 严格匹配当前路径的子路径
+#alias zz='z -i'      # 使用交互式选择模式
+#alias zf='z -I'      # 使用 fzf 对多个结果进行选择
+#alias zb='z -b'      # 快速回到父目录
 alias cdb='cd -'
 alias ..='cd ..'
 alias ...='cd ../../'
@@ -34,8 +25,8 @@ alias ....='cd ../../../'
 
 # ls
 # DISABLE_LS_COLORS=true
-alias ls="exa -bh --color=auto --icons --group-directories-first"
-alias l="ls"  l.='ls -d .*'  la='ls -al'  lt='ls --tree' ll='ls -lbt created'
+alias ls="eza -bh --color=auto --icons --group-directories-first"
+alias l="ls -l"  l.='ls -d .*'  la='ls -lhAF'  lt='ls --tree' ll='ls -lbt created'
 
 alias cp='cp -iv'
 alias mv='mv -iv'
@@ -54,11 +45,19 @@ alias glow='glow -p'
 alias vsc='code .'
 alias cht='cht.sh'
 alias rgf='rga-fzf'
-alias typora='typora --proxy-server="socks5://127.0.0.1:1089"'
 alias cleet='bash ~/Projects/Script/leetcodeTitle.sh'
 #alias jleet='bash ~/Projects/Script/leetcodeClass.sh'
-alias jleet='python3 $HOME/Projects/Script/leetcode.py'
+#alias jleet='python3 $HOME/Projects/Script/leetcode.py'
 
+# Modern Unix commands
+# See https://github.com/ibraheemdev/modern-unix
+(( $+commands[bat] )) && alias cat='bat -p --wrap character'
+(( $+commands[fd] )) && alias find=fd
+(( $+commands[rg] )) && alias grep=rg
+(( $+commands[delta] )) && alias diff=delta
+(( $+commands[duf] )) && alias df=duf
+(( $+commands[dust] )) && alias du=dust
+(( $+commands[hyperfine] )) && alias benchmark=hyperfine
 
 # Remove git from a project
 alias ungit="find . -name '.git' -exec rm -rf {} \;"
@@ -69,13 +68,14 @@ alias ta='tmux attach -t'                         # tmux attach
 alias tl='tmux ls'                                # list
 alias tk='tmux kill-session -s'                   # kill session name
 
-# off Monitor
-alias doff='xrandr --output eDP --off'
-alias don='xrandr --output eDP --noprimary --right-of HDMI-A-0 --auto'
-
 # docker
 alias dks='sc-start docker'
-alias rediscli='docker exec -it myredis redis-cli'
+
+# brew
+alias brin="brew install"
+alias brs="brew search"
+alias update="brew update"
+alias upgrade="brew upgrade"
 
 #####################
 # Chopin Lazy       #
