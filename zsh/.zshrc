@@ -84,7 +84,6 @@ zinit as"program" make'!' atclone'./direnv hook zsh > zhook.zsh' \
         direnv/direnv
 
 zstyle ':fzf-tab:*' switch-group ',' '.'
-zstyle ':completion:*' menu select
 zstyle ':completion:*' matcher-list 'm:{a-z}={A-Za-z}'
 
 zstyle ':completion:*:descriptions' format '[%d]'
@@ -139,7 +138,6 @@ zstyle ':fzf-tab:complete:tldr:argument-1' fzf-preview 'tldr --color always $wor
 
 zstyle ':fzf-tab:*' fzf-flags --color=fg:1,fg+:2 --bind=tab:down,shift-tab:up
 zstyle ':fzf-tab:*' use-fzf-default-opts yes
-zstyle ":completion:*:git-checkout:*" sort false
 zstyle ':completion:*' file-sort modification
 zstyle ':completion:*:eza' sort false
 zstyle ':completion:files' sort false
