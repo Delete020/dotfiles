@@ -20,11 +20,6 @@ zinit light-mode for \
 
 ### End of Zinit's installer chunk
 
-# Homebrew completion (must be on $fpath before compinit runs)
-if type brew &>/dev/null; then
-    FPATH="$(brew --prefix)/share/zsh/site-functions:${FPATH}"
-fi
-
 autoload -Uz compinit promptinit
 compinit
 promptinit
@@ -170,7 +165,7 @@ eval "$(pyenv init -)"
 ## alias env ====
 source $HOME/.zsh_aliases
 
-# Load environment variables from .envrc
+# Re-source env vars: /etc/zprofile's path_helper pushed our PATH entries behind system dirs
 source $HOME/.dotfiles/zsh/.zshenv
 
 ## func ===========================================================================================
@@ -187,7 +182,3 @@ rga-fzf() {
     echo "opening $file" &&
     xdg-open "$file"
 }
-
-
-# Added by Antigravity CLI installer
-export PATH="/Users/cancel/.local/bin:$PATH"

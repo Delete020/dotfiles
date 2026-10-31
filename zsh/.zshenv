@@ -1,5 +1,9 @@
 # Environment Variables
-# Sourced from .zshrc - Environment variable management
+# Loaded as ~/.zshenv and sourced again from .zshrc (macOS path_helper in
+# /etc/zprofile reorders PATH), so everything here must be idempotent.
+
+# keep PATH/FPATH entries unique so re-sourcing does not duplicate them
+typeset -U path PATH fpath FPATH
 
 #set Editor
 export VISUAL=nvim
@@ -16,7 +20,7 @@ export FZF_CTRL_R_OPTS="--preview 'echo {}' --preview-window down:3:hidden:wrap 
 export FZF_ALT_C_OPTS="--preview '(eza --tree --icons --level 3 --color=always --group-directories-first {} || tree -NC {} || ls --color=always --group-directories-first {}) 2>/dev/null | head -200'"
 
 # FZF theme
-export FZF_DEFAULT_OPTS=$FZF_DEFAULT_OPTS' --ansi
+export FZF_DEFAULT_OPTS='--ansi
  --color=fg:#908caa,bg:-1,hl:#ea9a97
  --color=fg+:#e0def4,bg+:#393552,hl+:#ea9a97
  --color=border:#44415a,header:#3e8fb0,gutter:#232136
