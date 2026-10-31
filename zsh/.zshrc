@@ -154,8 +154,6 @@ fi
 
 # atuin
 eval "$(atuin init zsh)"
-# pyenv
-eval "$(pyenv init -)"
 
 #########################################################################
 # ENV VARIABLE
