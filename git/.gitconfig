@@ -1,32 +1,29 @@
 [user]
-	email = delete020@protonmail.com
+	email = delete020@proton.me
 	name = Delete020
+	signingkey = 46C43F2E3E39C09C
 [core]
 	autocrlf = input
 	pager = delta
-[http]
-	proxy = socks5://127.0.0.1:1089
-[https]
-	proxy = socks5://127.0.0.1:1089
-[http "https://github.com"]
-	proxy = socks5://127.0.0.1:1089
-[https "https://github.com"]
-	proxy = socks5://127.0.0.1:1089
 
 [interactive]
-  diffFilter = delta --color-only
+	diffFilter = delta --color-only
 
 [delta]
-  features = side-by-side line-numbers decorations
-  whitespace-error-style = 22 reverse
+	features = side-by-side line-numbers decorations
+	whitespace-error-style = 22 reverse
 	syntax-theme = Dracula
 
 [delta "decorations"]
-  commit-decoration-style = bold yellow box ul
-  file-style = bold yellow ul
-  file-decoration-style = none
+	commit-decoration-style = bold yellow box ul
+	file-style = bold yellow ul
+	file-decoration-style = none
 
 [delta "line-numbers"]
 	line-numbers-left-format = "{nm:>3}┊"
 	line-numbers-right-format = "{np:>3}│ "
 	line-numbers-zero-style = "#888888"
+[commit]
+	gpgsign = true
+[gpg]
+	program = /opt/homebrew/bin/gpg
