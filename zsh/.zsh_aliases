@@ -86,24 +86,3 @@ alias brin="brew install"
 alias brs="brew search"
 alias update="brew update"
 alias upgrade="brew upgrade"
-
-#####################
-# Chopin Lazy       #
-#####################
-alias lazy-open="lazy -o \"\$(fd --type f --hidden --exclude .git . './'|fzf --prompt='open>' --preview 'lazy -p {}' --select-1 --exit-0)\""
-alias lazy-exec="lazy -e \"\$(fd -e sh -e jl -e py -e tex -e c -e cpp -e go -e scala -e java -e rs -e sql --exclude .git . './'|fzf --prompt='exec>' --preview 'lazy -p {}' --select-1 --exit-0)\""
-alias lazy-copy="lazy -c \"\$(fd --type f --hidden --exclude .git . './'|fzf --prompt='copy>' --preview 'lazy -p {}' --select-1 --exit-0)\""
-alias lazy-rename="lazy -r \"\$(fd --type f --hidden --exclude .git . './'|fzf --prompt='rename>' --preview 'lazy -p {}' --select-1 --exit-0)\""
-alias lazy-delete="lazy -d \"\$(fd --type f --hidden --exclude .git . './'|fzf --prompt='delete>' --preview 'lazy -p {}' --select-1 --exit-0)\""
-alias lazy-open-wiki="lazy -o \"\$(fd --type f --hidden --exclude .git . '$HOME/Notes'|fzf --prompt='wikis>' --preview 'lazy -p {}' --select-1 --exit-0)\""
-alias lazy-open-book="lazy -o \"\$(fd -e pdf -e epub -e djvu -e mobi --exclude .git . '$HOME/Notes' '$HOME/Documents'|fzf --prompt='books>' --preview 'lazy -p {}' --reverse --select-1 --exit-0)\""
-alias lazy-open-media="lazy -o \"\$(fd -e jpg -e jpeg -e png -e gif -e bmp -e tiff -e mp3 -e flac -e mkv -e avi -e mp4 --exclude .git . '$HOME/Music/'|fzf --prompt='medias>' --preview 'lazy -p {}' --reverse --select-1 --exit-0)\""
-
-bindkey -s '^F' 'lazy-open\n'
-bindkey -s '^X' 'lazy-exec\n'
-# bindkey -s "^N" 'lazy-copy\n'
-# bindkey -s "^V" 'lazy-rename\n'
-bindkey -s "^Z" 'lazy-delete\n'
-# bindkey -s '^W' 'lazy-open-wiki\n'
-bindkey -s '^P' 'lazy-open-book\n'
-# bindkey -s '^A' 'lazy-open-media\n'
