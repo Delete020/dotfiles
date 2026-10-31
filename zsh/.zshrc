@@ -1,208 +1,102 @@
-## p10k ============================================================================================
-if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
-  source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
-fi
+typeset -U path PATH
+path=(
+  "$HOME/.local/bin"
+  "$HOME/.node_modules/bin"
+  $path
+)
 
-# omz ==============================================================================================
-export ZSH="/home/cancel/.oh-my-zsh"
-
-ZSH_THEME="powerlevel10k/powerlevel10k"
-
-plugins=(git sudo systemd archlinux history tmux docker docker-compose)
-
-DISABLE_MAGIC_FUNCTIONS=true
-source $ZSH/oh-my-zsh.sh
-
-## history =========================================================================================
-HISTSIZE=1000000                # maximum history size in terminal's memory
-SAVEHIST=1000000                # maximum size of history file
-setopt HIST_IGNORE_SPACE        # ignore commands with leading space
-setopt HIST_IGNORE_DUPS         # do not put duplicated command into history list
-setopt HIST_REDUCE_BLANKS       # remove unnecessary blanks
-setopt INC_APPEND_HISTORY       # append command to history file immediately after execution
-
-## Zinit ===========================================================================================
-source ~/.zinit/bin/zinit.zsh
-autoload -Uz _zinit
-(( ${+_comps} )) && _comps[zinit]=_zinit
-
-# Load a few important annexes, without Turbo
-# (this is currently required for annexes)
-zinit light-mode for \
-    zdharma-continuum/zinit-annex-{'bin-gem-node','binary-symlink','patch-dl','submods','rust','readurl'}
-
-### End of Zinit's installer chunk
-
-autoload -Uz compinit promptinit
-compinit
-promptinit
-zstyle ':completion:*' menu select
-
-## zinit plugins ===================================================================================
-# Recommended Be Loaded Last.
-zinit ice wait blockf lucid atpull'zinit creinstall -q .'
-zinit load zsh-users/zsh-completions
-
-# fzf-tab ===========================================================
-zinit ice wait lucid depth"1" atload"zicompinit; zicdreplay" blockf
-zinit light Aloxaf/fzf-tab
-
-zstyle ':fzf-tab:*' switch-group ',' '.'
-
-zstyle ':completion:*:descriptions' format '[%d]'
-zstyle ':completion:*' list-colors ${(s.:.)LS_COLORS}
-zstyle ':completion:complete:*:options' sort false
-zstyle ':fzf-tab:complete:(cd|ls|exa|bat|cat|emacs|vi|vim|nvim):*' fzf-preview 'exa -1 --color=always $realpath 2>/dev/null'
-zstyle ':fzf-tab:complete:(-command-|-parameter-|-brace-parameter-|export|unset|expand):*' \
-	   fzf-preview 'echo ${(P)word}'
-
-# Preivew `kill` and `ps` commands
-zstyle ':completion:*:*:*:*:processes' command 'ps -u $USER -o pid,user,comm -w -w'
-zstyle ':fzf-tab:complete:(kill|ps):argument-rest' fzf-preview \
-       '[[ $group == "[process ID]" ]] &&
-        if [[ $OSTYPE == darwin* ]]; then
-           ps -p $word -o comm="" -w -w
-        elif [[ $OSTYPE == linux* ]]; then
-           ps --pid=$word -o cmd --no-headers -w -w
-        fi'
-zstyle ':fzf-tab:complete:(kill|ps):argument-rest' fzf-flags '--preview-window=down:3:wrap'
-zstyle ':fzf-tab:complete:systemctl-*:*' fzf-preview 'SYSTEMD_COLORS=1 systemctl status $word'
-
-# Preivew `git` commands
-zstyle ':fzf-tab:complete:git-(add|diff|restore):*' fzf-preview \
-	   'git diff $word | delta'
-zstyle ':fzf-tab:complete:git-log:*' fzf-preview \
-	   'git log --color=always $word'
-zstyle ':fzf-tab:complete:git-help:*' fzf-preview \
-	   'git help $word | bat -plman --color=always'
-zstyle ':fzf-tab:complete:git-show:*' fzf-preview \
-	   'case "$group" in
-	"commit tag") git show --color=always $word ;;
-	*) git show --color=always $word | delta ;;
-	esac'
-zstyle ':completion:*:git-checkout:*' sort false
-zstyle ':fzf-tab:complete:git-checkout:*' fzf-preview \
-	   'case "$group" in
-	"modified file") git diff $word | delta ;;
-	"recent commit object name") git show --color=always $word | delta ;;
-	*) git log --color=always $word ;;
-	esac'
-
-# Privew help
-zstyle ':fzf-tab:complete:(\\|)run-help:*' fzf-preview 'run-help $word'
-zstyle ':fzf-tab:complete:(\\|*/|)man:*' fzf-preview 'man $word'
-
-# zstyle ":fzf-tab:*" fzf-flags --color=bg+:+23
-zstyle ":completion:*:git-checkout:*" sort false
-zstyle ':completion:*' file-sort modification
-zstyle ':completion:*:exa' sort false
-zstyle ':completion:files' sort false
-zstyle ':completion:*' list-colors ${(s.:.)LS_COLORS}
-zstyle ':fzf-tab:*:*argument-rest*' popup-pad 100 0
-
-zinit wait lucid light-mode for \
- atinit"ZINIT[COMPINIT_OPTS]=-C; zpcompinit; zpcdreplay" \
-    zdharma-continuum/fast-syntax-highlighting \
- atload"!_zsh_autosuggest_start" \
-    zsh-users/zsh-autosuggestions \
- pick"git-it-on.plugin.zsh" \
-    peterhurford/git-it-on.zsh
-
-zinit wait="1" lucid light-mode for \
-    kevinhwang91/zsh-tmux-capture \
-    hlissner/zsh-autopair \
-    hchbaw/zce.zsh \
-    Aloxaf/gencomp \
-    wfxr/forgit
-
-# chopin lazy
-zinit ice as"program" pick"lazy" atclone"cargo install --path ." lucid wait"1"
-zinit light zetatez/lazy
-
-# mcfly
-zinit ice lucid wait"0a" from"gh-r" as"program" atload'eval "$(mcfly init zsh)"' 
-zinit light cantino/mcfly
-
-# cheat.sh
-zinit wait'2a' lucid \
-  id-as'cht.sh' \
-  as'program' \
-  for https://cht.sh/:cht.sh
-zinit wait'2b' lucid \
-  id-as'cht-completion' \
-  has'rlwrap' \
-  mv'cht* -> _cht' \
-  as'completion' \
-  for https://cheat.sh/:zsh
-
-zinit as="completion" for \
-    OMZP::fd/_fd \
-    OMZP::rust/_rustc \
-    https://github.com/junegunn/fzf/raw/master/shell/completion.zsh
-
-eval "$(zoxide init zsh)"
-
-# To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
-[[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
-
-## alias env ===========================================================================================
-source $HOME/.zsh_aliases
-# bindkey -v
-
-#set Editor
 export VISUAL=nvim
 export EDITOR="$VISUAL"
-export FZF_DEFAULT_COMMAND='fd --type f'
-
-# npm
-PATH="$HOME/.node_modules/bin:$PATH"
-export npm_config_prefix=~/.node_modules
-
-# NNN
-export NNN_PLUG='f:finder;o:fzopen;p:preview-tabbed;d:diffs;v:imgview,c:fzcd;t:preview-tui'
-# NNN bookmark
-export NNN_BMS='i:~/Pictures/Wallpapers;n:~/Documents/Notes'
-export NNN_SEL='/tmp/.sel'
-export NNN_FIFO='/tmp/nnn.fifo'
-
-# rg
+export npm_config_prefix="$HOME/.node_modules"
 export RIPGREP_CONFIG_PATH="$HOME/.ripgreprc"
+export XDG_CONFIG_HOME="${XDG_CONFIG_HOME:-$HOME/.config}"
 
-## fzf
-export FZF_DEFAULT_COMMAND='rg --files --no-ignore --hidden --follow -g "!{.git,node_modules}/*" 2>/dev/null'
+HISTFILE="$HOME/.zsh_history"
+HISTSIZE=1000000
+SAVEHIST=1000000
+setopt APPEND_HISTORY
+setopt INC_APPEND_HISTORY
+setopt SHARE_HISTORY
+setopt HIST_EXPIRE_DUPS_FIRST
+setopt HIST_FIND_NO_DUPS
+setopt HIST_IGNORE_ALL_DUPS
+setopt HIST_IGNORE_SPACE
+setopt HIST_REDUCE_BLANKS
+setopt INTERACTIVE_COMMENTS
+setopt AUTO_CD
+
+bindkey -e
+
+zsh_cache_dir="${XDG_CACHE_HOME:-$HOME/.cache}/zsh"
+mkdir -p "$zsh_cache_dir"
+autoload -Uz compinit
+compinit -d "$zsh_cache_dir/zcompdump-$ZSH_VERSION"
+
+zstyle ':completion:*' menu select
+zstyle ':completion:*' group-name ''
+zstyle ':completion:*:descriptions' format '[%d]'
+zstyle ':completion:*' list-colors ${(s.:.)LS_COLORS}
+zstyle ':completion:*' matcher-list 'm:{a-zA-Z}={A-Za-z}' 'r:|[._-]=* r:|=*'
+zstyle ':completion:*' cache-path "$zsh_cache_dir/completion"
+
+[[ -r /usr/share/fzf/completion.zsh ]] && source /usr/share/fzf/completion.zsh
+[[ -r /usr/share/fzf/key-bindings.zsh ]] && source /usr/share/fzf/key-bindings.zsh
+
+if [[ -r /usr/share/zsh/plugins/fzf-tab-git/fzf-tab.plugin.zsh ]]; then
+  source /usr/share/zsh/plugins/fzf-tab-git/fzf-tab.plugin.zsh
+  zstyle ':fzf-tab:*' switch-group ',' '.'
+  zstyle ':fzf-tab:complete:cd:*' fzf-preview 'eza -1 --color=always --icons $realpath 2>/dev/null'
+  zstyle ':fzf-tab:complete:(bat|cat|less|nvim|vim):*' fzf-preview 'bat --color=always --style=numbers $realpath 2>/dev/null'
+  zstyle ':fzf-tab:complete:git-(add|diff|restore):*' fzf-preview 'git diff --color=always $word | delta'
+  zstyle ':fzf-tab:complete:systemctl-*:*' fzf-preview 'SYSTEMD_COLORS=1 systemctl status $word'
+fi
+
+if (( $+commands[vivid] )); then
+  export LS_COLORS="$(vivid generate molokai)"
+fi
+
+export FZF_DEFAULT_COMMAND='fd --type f --hidden --no-ignore --exclude .git --exclude node_modules 2>/dev/null'
 export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
-export FZF_CTRL_T_OPTS='--preview="bat --color=always --style=header {} 2>/dev/null" --preview-window=right:60%:wrap'
-export FZF_ALT_C_COMMAND='fd -t d -d 1'
-export FZF_ALT_C_OPTS='--preview="exa -1 --icons --git --git-ignore {}" --preview-window=right:60%:wrap'
+export FZF_CTRL_T_OPTS='--preview "bat --color=always --style=numbers {} 2>/dev/null" --preview-window=right:60%:wrap'
+export FZF_ALT_C_COMMAND='fd --type d --hidden --exclude .git'
+export FZF_ALT_C_OPTS='--preview "eza -1 --icons --git --git-ignore {}" --preview-window=right:60%:wrap'
+export FZF_DEFAULT_OPTS='--ansi --layout=reverse --border=rounded --height=70% --color=fg:#D8DEE9,bg:-1,hl:#A3BE8C --color=fg+:#D8DEE9,bg+:#191e2a,hl+:#ffcc66 --color=info:#DDB6F2,prompt:#be5046,pointer:#45cdff --color=marker:#73d0ff,spinner:#73d0ff,header:#d4bfff'
 
-# FZF custom OneDark theme
-export FZF_DEFAULT_OPTS=$FZF_DEFAULT_OPTS' --ansi
- --color=fg:#D8DEE9,bg:-1,hl:#A3BE8C
- --color=fg+:#D8DEE9,bg+:#191e2a,hl+:#ffcc66
- --color=info:#DDB6F2,prompt:#be5046,pointer:#45cdff
- --color=marker:#73d0ff,spinner:#73d0ff,header:#d4bfff'
+[[ -r /usr/share/zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh ]] && source /usr/share/zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh
+ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=8'
 
- # mdv
-export MDV_THEME="729.8953"
-export MDV_CODE_THEME="729.8953"
-export XDG_CONFIG_HOME=$HOME/.config
+(( $+commands[zoxide] )) && eval "$(zoxide init zsh)"
+(( $+commands[atuin] )) && eval "$(atuin init zsh)"
 
-## func ===========================================================================================
-rga-fzf() {
-	RG_PREFIX="rga --files-with-matches"
-	local file
-	file="$(
-		FZF_DEFAULT_COMMAND="$RG_PREFIX '$1'" \
-			fzf --sort --preview="[[ ! -z {} ]] && rga --pretty --context 5 {q} {}" \
-				--phony -q "$1" \
-				--bind "change:reload:$RG_PREFIX {q}" \
-				--preview-window="70%:wrap"
-	)" &&
-	echo "opening $file" &&
-	xdg-open "$file"
+fo() {
+  local selected
+  selected="$(fd --type f --hidden --exclude .git | fzf --prompt='open> ' --preview 'bat --color=always --style=numbers {} 2>/dev/null')" || return
+  [[ -n "$selected" ]] && xdg-open "$selected" >/dev/null 2>&1 &
 }
 
-#export CLASSPATH=~/Projects/IdeaProjects/ucb_cs61b_software_2022sp-master/lib/*
+fe() {
+  local selected
+  selected="$(fd --type f --hidden --exclude .git | fzf --prompt='edit> ' --preview 'bat --color=always --style=numbers {} 2>/dev/null')" || return
+  [[ -n "$selected" ]] && "$EDITOR" "$selected"
+}
 
-# To customize prompt, run `p10k configure` or edit ~/.dotfiles/zsh/.p10k.zsh.
-[[ ! -f ~/.dotfiles/zsh/.p10k.zsh ]] || source ~/.dotfiles/zsh/.p10k.zsh
+y() {
+  local tmp cwd
+  tmp="$(mktemp -t 'yazi-cwd.XXXXXX')"
+  command yazi "$@" --cwd-file="$tmp"
+  IFS= read -r -d '' cwd < "$tmp"
+  [[ "$cwd" != "$PWD" && -d "$cwd" ]] && builtin cd -- "$cwd"
+  command rm -f -- "$tmp"
+}
+
+rga-fzf() {
+  local file
+  file="$(rga --files-with-matches "$1" | fzf --sort --preview "rga --pretty --context 5 {q} {}" --phony -q "$1" --bind 'change:reload:rga --files-with-matches {q}' --preview-window='70%:wrap')" || return
+  [[ -n "$file" ]] && xdg-open "$file" >/dev/null 2>&1 &
+}
+
+source "$HOME/.zsh_aliases"
+
+(( $+commands[starship] )) && eval "$(starship init zsh)"
+
+[[ -r /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh ]] && source /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh

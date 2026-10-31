@@ -4,7 +4,7 @@
 
 # terminal emulator
 super + Return
-        alacritty	
+	ghostty
 
 # program launcher
 # super + @space
@@ -147,9 +147,9 @@ XF86AudioMute
         amixer set Master toggle 
 # brightness control
 XF86MonBrightnessDown 
-        light -U 5
+	brightnessctl --min-value=1 set 5%-
 XF86MonBrightnessUp 
-        light -A 5
+	brightnessctl set +5%
 # lockscreen
 alt + shift + x
 		betterlockscreen -l dim && betterlockscreen -u ./Pictures/Wallpapers

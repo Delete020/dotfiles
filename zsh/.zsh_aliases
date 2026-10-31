@@ -2,11 +2,11 @@
 alias zshconfig="vim ~/.zshrc"
 alias sozsh="source ~/.zshrc"
 alias aliasrc="vim ~/.zsh_aliases"
-alias ohmyzsh="vim ~/.oh-my-zsh"
+alias promptconfig="nvim ~/.config/starship.toml"
 alias bspwmrc='nvim $HOME/.config/bspwm/bspwmrc'
 alias picomrc='nvim $HOME/.config/picom/picom.conf'
 alias sxhkbrc='nvim $HOME/.config/sxhkd/sxhkdrc'
-alias alacrc='nvim $HOME/.config/alacritty/alacritty.yml'
+alias termconfig='nvim $HOME/.config/ghostty/config.ghostty'
 alias vimconfigPlugin='nvim $HOME/.config/nvim/lua/plugin-config/plugins.lua'
 alias vimconfigMap='nvim $HOME/.config/nvim/lua/plugin-config/remap.lua'
 alias vimconfigSet='nvim $HOME/.config/nvim/lua/plugin-config/set.lua'
@@ -15,12 +15,9 @@ alias vimconfigSet='nvim $HOME/.config/nvim/lua/plugin-config/set.lua'
 alias setproxy="export http_proxy=socks5://127.0.0.1:1089 https_proxy=socks5://127.0.0.1:1089"
 alias unsetproxy="unset http_proxy https_proxy"
 
-# p10kupdate
-alias p10kupdate='git -C ${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/themes/powerlevel10k pull'
-
 # pacman
-alias pacman='sudo pacman'
-alias paclean='pacman -Rns $(pacman -Qtdq)'
+alias pac='sudo pacman'
+alias paclean='sudo pacman -Rns $(pacman -Qtdq)'
 
 # Changing Directories
 alias zc='z -c'      # 严格匹配当前路径的子路径
@@ -34,25 +31,29 @@ alias ....='cd ../../../'
 
 # ls
 # DISABLE_LS_COLORS=true
-alias ls="exa -bh --color=auto --icons --group-directories-first"
-alias l="ls"  l.='ls -d .*'  la='ls -al'  lt='ls --tree' ll='ls -lbt created'
+alias ls="eza -bh --color=auto --icons --group-directories-first"
+alias l="ls"  l.='ls -d .*'  la='ls -al'  lt='ls --tree' ll='ls -lb --sort=created'
 
 alias cp='cp -iv'
 alias mv='mv -iv'
 alias ln='ln -iv'
-alias rm='rm -r'
+alias rm='rm -Iv'
 alias mkdir='mkdir -v -p'
+alias mount='sudo mount'
+alias umount='sudo umount'
 
 # Convenience
 alias vi='nvim'
 alias vim='nvim'
-alias h='history | tail -100'
+alias h='atuin search'
 alias fd="fd --hidden --exclude '.git'"
-alias hrg='history | rg'
+alias hrg='atuin search --search-mode fulltext'
 alias bat='bat --theme=Visual\ Studio\ Dark+'
 alias glow='glow -p'
+alias ff='fastfetch'
+alias nnn='y'
 alias vsc='code .'
-alias cht='cht.sh'
+alias cht='tldr'
 alias rgf='rga-fzf'
 alias typora='typora --proxy-server="socks5://127.0.0.1:1089"'
 alias cleet='bash ~/Projects/Script/leetcodeTitle.sh'
@@ -77,23 +78,5 @@ alias don='xrandr --output eDP --noprimary --right-of HDMI-A-0 --auto'
 alias dks='sc-start docker'
 alias rediscli='docker exec -it myredis redis-cli'
 
-#####################
-# Chopin Lazy       #
-#####################
-alias lazy-open="lazy -o \"\$(fd --type f --hidden --exclude .git . './'|fzf --prompt='open>' --preview 'lazy -p {}' --select-1 --exit-0)\""
-alias lazy-exec="lazy -e \"\$(fd -e sh -e jl -e py -e tex -e c -e cpp -e go -e scala -e java -e rs -e sql --exclude .git . './'|fzf --prompt='exec>' --preview 'lazy -p {}' --select-1 --exit-0)\""
-alias lazy-copy="lazy -c \"\$(fd --type f --hidden --exclude .git . './'|fzf --prompt='copy>' --preview 'lazy -p {}' --select-1 --exit-0)\""
-alias lazy-rename="lazy -r \"\$(fd --type f --hidden --exclude .git . './'|fzf --prompt='rename>' --preview 'lazy -p {}' --select-1 --exit-0)\""
-alias lazy-delete="lazy -d \"\$(fd --type f --hidden --exclude .git . './'|fzf --prompt='delete>' --preview 'lazy -p {}' --select-1 --exit-0)\""
-alias lazy-open-wiki="lazy -o \"\$(fd --type f --hidden --exclude .git . '$HOME/Notes'|fzf --prompt='wikis>' --preview 'lazy -p {}' --select-1 --exit-0)\""
-alias lazy-open-book="lazy -o \"\$(fd -e pdf -e epub -e djvu -e mobi --exclude .git . '$HOME/Notes' '$HOME/Documents'|fzf --prompt='books>' --preview 'lazy -p {}' --reverse --select-1 --exit-0)\""
-alias lazy-open-media="lazy -o \"\$(fd -e jpg -e jpeg -e png -e gif -e bmp -e tiff -e mp3 -e flac -e mkv -e avi -e mp4 --exclude .git . '$HOME/Music/'|fzf --prompt='medias>' --preview 'lazy -p {}' --reverse --select-1 --exit-0)\""
-
-bindkey -s '^F' 'lazy-open\n'
-bindkey -s '^X' 'lazy-exec\n'
-# bindkey -s "^N" 'lazy-copy\n'
-# bindkey -s "^V" 'lazy-rename\n'
-bindkey -s "^Z" 'lazy-delete\n'
-# bindkey -s '^W' 'lazy-open-wiki\n'
-bindkey -s '^P' 'lazy-open-book\n'
-# bindkey -s '^A' 'lazy-open-media\n'
+bindkey -s '^F' 'fo\n'
+bindkey -s '^X' 'fe\n'

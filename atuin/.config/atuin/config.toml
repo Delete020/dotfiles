@@ -1,0 +1,25 @@
+auto_sync = false
+update_check = false
+timezone = "local"
+search_mode = "fuzzy"
+filter_mode = "global"
+filter_mode_shell_up_key_binding = "directory"
+workspaces = true
+style = "compact"
+inline_height = 20
+show_preview = true
+enter_accept = true
+secrets_filter = true
+
+[stats]
+common_subcommands = [
+  "cargo",
+  "docker",
+  "git",
+  "go",
+  "kubectl",
+  "npm",
+  "pacman",
+  "paru",
+  "systemctl",
+]
