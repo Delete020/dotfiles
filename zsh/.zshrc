@@ -78,7 +78,8 @@ zinit wait="1" lucid light-mode depth"2" for \
     hchbaw/zce.zsh \
     Aloxaf/gencomp \
     wfxr/forgit \
-    atclone="dircolors -b LS_COLORS > c.zsh" atpull='%atclone' pick='c.zsh' \
+    atclone="gdircolors -b LS_COLORS > c.zsh" atpull='%atclone' pick='c.zsh' \
+    atload'zstyle ":completion:*" list-colors ${(s.:.)LS_COLORS}' \
     trapd00r/LS_COLORS \
     as="program" atclone="rm -f ^(rgg|agv)" \
     lilydjwg/search-and-view
@@ -92,7 +93,6 @@ zstyle ':completion:*' menu select
 zstyle ':completion:*' matcher-list 'm:{a-z}={A-Za-z}'
 
 zstyle ':completion:*:descriptions' format '[%d]'
-zstyle ':completion:*' list-colors ${(s.:.)LS_COLORS}
 zstyle ':completion:complete:*:options' sort false
 zstyle ':fzf-tab:complete:(cd|ls|lsd|exa|eza|bat|cat|emacs|nano|vi|vim):*' \
        fzf-preview 'eza -1 --icons --color=always $realpath 2>/dev/null || ls -1 --color=always $realpath'
@@ -148,7 +148,6 @@ zstyle ":completion:*:git-checkout:*" sort false
 zstyle ':completion:*' file-sort modification
 zstyle ':completion:*:eza' sort false
 zstyle ':completion:files' sort false
-zstyle ':completion:*' list-colors ${(s.:.)LS_COLORS}
 zstyle ':fzf-tab:*:*argument-rest*' popup-pad 100 0
 zstyle ':completion:*' menu no
 
