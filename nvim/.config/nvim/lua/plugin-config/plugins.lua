@@ -3,9 +3,6 @@ return {
     {
         'rose-pine/neovim',
         name = 'rose-pine',
-        config = function()
-            vim.cmd('colorscheme rose-pine')
-        end
     },
 
     { -- Useful plugin to show you pending keybinds.
@@ -22,42 +19,23 @@ return {
 
     {'nvim-treesitter/nvim-treesitter', build = ':TSUpdate'},
 
-    'nvim-treesitter/playground',
     'theprimeagen/harpoon',
     'mbbill/undotree',
     'tpope/vim-fugitive',
 
-    'folke/zen-mode.nvim',
-    'github/copilot.vim',
-    'eandrju/cellular-automaton.nvim',
+    {
+        'folke/zen-mode.nvim',
+        cmd = 'ZenMode',
+    },
 
     {
-        'nvim-tree/nvim-tree.lua',
-        dependencies = {
-            'nvim-tree/nvim-web-devicons', -- optional, for file icons
-        },
-        --tag = 'nightly' -- optional, updated every week. (see issue #1193)
+        'eandrju/cellular-automaton.nvim',
+        cmd = 'CellularAutomaton',
     },
 
     {
         'nvim-lualine/lualine.nvim',
         dependencies = { 'nvim-tree/nvim-web-devicons' }
-    },
-
-    {
-        "themercorp/themer.lua",
-        config = function()
-	      require("themer").setup({
-	          colorscheme = "rose_pine",
-	          styles = {
-	            	["function"] = { style = 'italic' },
-	             	functionbuiltin = { style = 'italic' },
-	             	variable = { style = 'italic' },
-	              	variableBuiltIn = { style = 'italic' },
-	            	parameter  = { style = 'italic' },
-	          },
-	      })
-        end
     },
 
     {
@@ -80,9 +58,8 @@ return {
         build = "make install_jsregexp"
     },
 
-    'lewis6991/impatient.nvim',
     'yianwillis/vimcdoc',                  --vimcdoc
-    'ThePrimeagen/vim-be-good',            --vim game
+
     'ap/vim-css-color',                    --css color
     'rust-lang/rust.vim',                  -- rust vim integration
     'tpope/vim-speeddating',               -- ctrl+a and ctrl+x on dates
@@ -94,4 +71,17 @@ return {
     'max397574/better-escape.nvim',        -- jj to escape insert mode
     'tpope/vim-sleuth',                    -- Detect tabstop and shiftwidth automatically
     'stevearc/conform.nvim',
+
+    -- Go development
+    {
+        'ray-x/go.nvim',
+        dependencies = { 'ray-x/guihua.lua' },
+        config = function()
+            require('go').setup()
+        end,
+        event = {"CmdlineEnter"},
+        ft = {"go", 'gomod'},
+        build = ':lua require("go.install").update_all_sync()'
+    },
+    'ray-x/guihua.lua', -- go.nvim dependency
 }

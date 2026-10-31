@@ -1,6 +1,6 @@
 local highlights = require("rose-pine.plugins.markid")
 require'nvim-treesitter.configs'.setup {
-  ensure_installed = {"html", "css", "vim", "lua", "javascript", "typescript", "tsx", "bash", "c", "java", "rust", "python", "toml", "json","r"},
+  ensure_installed = {"html", "css", "vim", "lua", "javascript", "typescript", "tsx", "bash", "c", "java", "rust", "python", "toml", "json", "r", "go", "markdown", "markdown_inline", "rnoweb", "yaml"},
   -- Install parsers synchronously (only applied to `ensure_installed`)
   sync_install = false,
 

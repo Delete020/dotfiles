@@ -10,7 +10,8 @@ require('lualine').setup {
       },
       ignore_focus = {},
       always_divide_middle = true,
-      globalstatus = false,
+      always_show_tabline  = true,
+      globalstatus = true,
       refresh = {
         statusline = 1000,
         tabline = 1000,
@@ -19,8 +20,23 @@ require('lualine').setup {
     },
     sections = {
       lualine_a = {'mode'},
-      lualine_b = {'branch', 'diff', 'diagnostics'},
-      lualine_c = {'filename'},
+      lualine_b = {
+        'branch',
+        { 'diff', symbols = { added = ' ', modified = ' ', removed = ' ' } },
+        {
+           'diagnostics',
+           sources  = { 'nvim_diagnostic' },
+           sections = { 'error', 'warn', 'info', 'hint' },
+           symbols  = { error = ' ', warn = ' ', info = ' ', hint = ' ' },
+        },
+       },
+      lualine_c = {
+        {
+          'filename',
+          path    = 1,
+          symbols = { modified = '', readonly = '', unnamed = '󰡯' },
+        },
+      },
       lualine_x = {'encoding', 'fileformat', 'filetype'},
       lualine_y = {'progress'},
       lualine_z = {'location'}

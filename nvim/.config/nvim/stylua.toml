@@ -1,0 +1,28 @@
+# StyLua Configuration File
+# Documentation: https://github.com/JohnnyMorganz/StyLua
+
+# Line width before wrapping
+column_width = 100
+
+# Indentation settings
+indent_type = "Spaces"
+indent_width = 2
+
+# Quote style for strings
+quote_style = "AutoPreferDouble"
+
+# Function call parentheses style
+call_parentheses = "Always"
+
+# Whether to omit parentheses for function calls with single string/table argument
+no_call_parentheses = false
+
+# Collapse simple if statements and similar constructs
+collapse_simple_statement = "Never"
+
+# Sort require statements at the top of the file
+[sort_requires]
+enabled = false
+
+# Table formatting
+table_separator = ","

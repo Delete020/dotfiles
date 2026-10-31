@@ -75,8 +75,8 @@ set(normal, "Q", "<nop>")
 set(normal, "<C-f>", "<cmd>silent !tmux neww tmux-sessionizer<CR>")
 set(normal, "<leader>f", vim.lsp.buf.format)
 
-set(normal, "<C-k>", "<cmd>cnext<CR>zz")
-set(normal, "<C-j>", "<cmd>cprev<CR>zz")
+set(normal, "<leader>cn", "<cmd>cnext<CR>zz", { desc = "Next quickfix item" })
+set(normal, "<leader>cp", "<cmd>cprev<CR>zz", { desc = "Previous quickfix item" })
 set(normal, "<leader>k", "<cmd>lnext<CR>zz")
 set(normal, "<leader>j", "<cmd>lprev<CR>zz")
 

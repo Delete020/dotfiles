@@ -5,38 +5,12 @@ return {
     opts = {},
   },
 
-    -- Autocompletion
-  {
-    'hrsh7th/nvim-cmp',
-    event = 'InsertEnter',
-    config = function()
-      local cmp = require('cmp')
-
-      cmp.setup({
-        sources = {
-          {name = 'nvim_lsp'},
-        },
-        mapping = cmp.mapping.preset.insert({
-          ['<C-Space>'] = cmp.mapping.complete(),
-          ['<C-u>'] = cmp.mapping.scroll_docs(-4),
-          ['<C-d>'] = cmp.mapping.scroll_docs(4),
-        }),
-        snippet = {
-          expand = function(args)
-            vim.snippet.expand(args.body)
-          end,
-        },
-      })
-    end
-  },
-
-  -- LSP
+    -- LSP
   {
     'neovim/nvim-lspconfig',
     cmd = {'LspInfo', 'LspInstall', 'LspStart'},
     event = {'BufReadPre', 'BufNewFile'},
     dependencies = {
-      {'hrsh7th/cmp-nvim-lsp'},
       {'williamboman/mason.nvim'},
       {'williamboman/mason-lspconfig.nvim'},
       {'saghen/blink.cmp'},
@@ -57,29 +31,74 @@ return {
     config = function()
       local lsp_defaults = require('lspconfig').util.default_config
 
-      -- Add cmp_nvim_lsp capabilities settings to lspconfig
-      -- This should be executed before you configure any language server
+      -- Add blink.cmp capabilities settings to lspconfig
       lsp_defaults.capabilities = vim.tbl_deep_extend(
         'force',
         lsp_defaults.capabilities,
-        require('cmp_nvim_lsp').default_capabilities()
+        require('blink.cmp').get_lsp_capabilities()
       )
 
       require('mason-lspconfig').setup({
+        automatic_enable = true,
         ensure_installed = {
+          -- Language Servers
           'lua_ls',
           'rust_analyzer',
           'pyright',
           'clangd',
-          },
+          'gopls',
+          'html',
+          'cssls',
+          'jsonls',
+          'yamlls',
+          'marksman',
+          'bashls',
+          'sqlls',
+          'taplo', -- TOML
+        },
         handlers = {
           -- this first function is the "default handler"
           -- it applies to every language server without a "custom handler"
           function(server_name)
             require('lspconfig')[server_name].setup({})
           end,
+          
+          -- Go language server configuration
+          gopls = function()
+            require('lspconfig').gopls.setup({
+              settings = {
+                gopls = {
+                  analyses = {
+                    unusedparams = true,
+                    shadow = true,
+                  },
+                  staticcheck = true,
+                  gofumpt = true,
+                  usePlaceholders = true,
+                  completeUnimported = true,
+                  buildFlags = {"-tags", "integration"},
+                  experimentalPostfixCompletions = true,
+                  hints = {
+                    assignVariableTypes = true,
+                    compositeLiteralFields = true,
+                    compositeLiteralTypes = true,
+                    constantValues = true,
+                    functionTypeParameters = true,
+                    parameterNames = true,
+                    rangeVariableTypes = true,
+                  },
+                },
+              },
+              on_attach = function(client, bufnr)
+                -- Enable inlay hints if available
+                if client.server_capabilities.inlayHintProvider and vim.lsp.inlay_hint then
+                  vim.lsp.inlay_hint.enable(true, { bufnr = bufnr })
+                end
+              end,
+            })
+          end,
         }
       })
     end
-  }
+  },
 }
