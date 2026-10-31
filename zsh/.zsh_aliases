@@ -28,11 +28,16 @@ alias ....='cd ../../../'
 alias ls="eza -bh --color=auto --icons --group-directories-first"
 alias l="ls -l"  l.='ls -d .*'  la='ls -lhAF'  lt='ls --tree' ll='ls -lbt created'
 
-alias cp='cp -iv'
+alias cp='cp -ivr'
 alias mv='mv -iv'
 alias ln='ln -iv'
 alias rm='rm -r'
 alias mkdir='mkdir -v -p'
+alias vf='nvim $(fzf)'
+
+# git
+alias glog='git log --graph --oneline --all'
+alias lg='lazygit'
 
 # Convenience
 alias vi='nvim'
@@ -48,6 +53,10 @@ alias rgf='rga-fzf'
 alias cleet='bash ~/Projects/Script/leetcodeTitle.sh'
 #alias jleet='bash ~/Projects/Script/leetcodeClass.sh'
 #alias jleet='python3 $HOME/Projects/Script/leetcode.py'
+alias c='claude'
+alias cr='claude -r'
+alias cc='claude --continue'
+alias zhian='cd /Users/cancel/Projects/helpme/zhian && codex resume 知安'
 
 # Modern Unix commands
 # See https://github.com/ibraheemdev/modern-unix
@@ -58,6 +67,7 @@ alias cleet='bash ~/Projects/Script/leetcodeTitle.sh'
 (( $+commands[duf] )) && alias df=duf
 (( $+commands[dust] )) && alias du=dust
 (( $+commands[hyperfine] )) && alias benchmark=hyperfine
+(( $+commands[btop] )) && alias top=btop
 
 # Remove git from a project
 alias ungit="find . -name '.git' -exec rm -rf {} \;"
