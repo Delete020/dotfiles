@@ -55,7 +55,9 @@ zinit ice as"command" from"gh-r" \
 zinit light starship/starship
 
 # fzf-tab ====
-zinit ice wait lucid depth"1" atload"zicompinit; zicdreplay" blockf
+# fzf is sourced after fzf-tab so its `**<Tab>` completion wraps fzf-tab-complete;
+# empty FZF_CTRL_R_COMMAND keeps fzf off ^R, which belongs to atuin
+zinit ice wait lucid depth"1" atload"zicompinit; zicdreplay; FZF_CTRL_R_COMMAND= source <(fzf --zsh)" blockf
 zinit light Aloxaf/fzf-tab
 
 # Completion enhancements ====
@@ -149,9 +151,6 @@ zstyle ':completion:files' sort false
 zstyle ':completion:*' list-colors ${(s.:.)LS_COLORS}
 zstyle ':fzf-tab:*:*argument-rest*' popup-pad 100 0
 zstyle ':completion:*' menu no
-
-zinit wait'2c' lucid for \
-    https://github.com/junegunn/fzf/raw/master/shell/{'completion','key-bindings'}.zsh
 
 zinit as="completion" for \
     OMZP::rust/_rustc \
